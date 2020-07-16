@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Penyimpangan_IDM</string>
+    <string name="default_notification_channel_id" />
+    <string name="karyawan_toko">Karyawan Toko :</string>
+    <string name="res_karyawan_toko">Karyawan Toko</string>
+    <string name="toko_asal">Toko Asal :</string>
+    <string name="res_toko_asal">Toko Asal</string>
+    <string name="toko_tujuan">Toko Tujuan :</string>
+    <string name="res_toko_tujuan">Toko Tujuan</string>
+    <string name="tanggal_mulai_pinjam">Tanggal Mulai Pinjam :</string>
+    <string name="res_tanggal_mulai_pinjam">Tanggal Mulai Pinjam</string>
+    <string name="tanggal_selesai_pinjam">Tanggal Selesai Pinjam :</string>
+    <string name="res_tanggal_selesai_pinjam">Tanggal Selesai Pinjam</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="tipe_approval">Tipe Approval :</string>
+    <string name="data_relasi">Data Relasi</string>
+    <string name="approve">Approve</string>
+</resources>
