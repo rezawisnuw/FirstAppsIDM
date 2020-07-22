@@ -94,9 +94,22 @@ class HomeActivity : AppCompatActivity() {
         }
 
         imageButton4.setOnClickListener{
-            val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
-            intent.putExtra("nik",nik)
-            startActivity(intent)
+            if(JabatanToko!!.contains("Kepala Toko (Ss)")
+                || JabatanToko!!.contains("Kepala Toko")
+                || JabatanToko!!.contains("Asisten Kepala Toko (Ss)")
+                || JabatanToko!!.contains("Asisten Kepala Toko")
+                || JabatanToko!!.contains("Merchandiser (Ss)")
+                || JabatanToko!!.contains("Merchandiser")
+            ){
+                val intent = Intent(this@HomeActivity, InputSPL::class.java)
+                intent.putExtra("nik",nik)
+                startActivity(intent)
+
+            } else{
+                val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
+                intent.putExtra("nik",nik)
+                startActivity(intent)
+            }
         }
     }
 
