@@ -13,11 +13,14 @@ import kotlinx.coroutines.coroutineScope
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 
 var ASAM:String? = ""
+var JabatanToko:String? = ""
+
 class HomeActivity : AppCompatActivity() {
 
     var progressBar:ProgressBar? = null
@@ -32,7 +35,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val nik = intent.getStringExtra("nik")
+
         isASAM(nik)
+        isJabatanToko(nik)
+
         imageButton.setOnClickListener{
             runOnUiThread {
                 progressBar!!.visibility = View.VISIBLE
@@ -120,6 +126,39 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val resp = response.body?.string()
                 ASAM = resp.toString()
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+    }
+
+    fun isJabatanToko(nik:String){
+        val url = "https://hrindomaret.com/api/getdata/jabatantokospl"
+
+        val cred = JSONObject()
+        cred.put("nik",nik)
+
+        val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val post = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val resp = response.body?.string()
+
+                val jsonObject = JSONObject(resp).getString("data")
+                val jsonArray = JSONArray(jsonObject)
+                val dataJabatan = jsonArray.getJSONObject(0).get("JabatanToko")
+
+                JabatanToko = dataJabatan.toString()
+
             }
 
             override fun onFailure(call: Call, e: IOException) {

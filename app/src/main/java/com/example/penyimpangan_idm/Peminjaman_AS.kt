@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
@@ -105,6 +106,12 @@ class Peminjaman_AS : AppCompatActivity() {
 
         button!!.text = "Select Date"
 
+        pb_peminjamanAS.visibility = View.VISIBLE
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        );
+
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
@@ -160,6 +167,12 @@ class Peminjaman_AS : AppCompatActivity() {
         button3!!.setOnClickListener(object : View.OnClickListener {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             override fun onClick(v: View) {
+                pb_peminjamanAS.visibility = View.VISIBLE
+                getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                );
+
                 println(Nikkaryawan)
                 println(TkAsl)
                 println(Tktujuan)
@@ -198,6 +211,9 @@ class Peminjaman_AS : AppCompatActivity() {
                         ListPost.setPost(respn)
                         if (body!!.toString().contains("Sukses")) {
                             runOnUiThread {
+                                pb_peminjamanAS.visibility = View.GONE
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                                 val dialog1 = AlertDialog.Builder(this@Peminjaman_AS)
                                 dialog1.setTitle("Submit Berhasil!")
                                 dialog1.setMessage("Data Telah Tersubmit")
@@ -212,9 +228,12 @@ class Peminjaman_AS : AppCompatActivity() {
 
                         } else if (body!!.toString().contains("Gagal")) {
                             runOnUiThread {
+                                pb_peminjamanAS.visibility = View.GONE
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AS)
                                 dialog2.setTitle("Submit Gagal!")
-                                dialog2.setMessage("Maaf Anda Telah Mencapai Batas Maksimal Penginputan")
+                                dialog2.setMessage("Sudah ada data peminjaman di toko $Tktujuan selama $JmlHari hari pada tanggal " + button!!.text as String?)
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
                                     Toast.makeText(
                                         this@Peminjaman_AS,
@@ -229,6 +248,9 @@ class Peminjaman_AS : AppCompatActivity() {
                             }
                         } else {
                             runOnUiThread {
+                                pb_peminjamanAS.visibility = View.GONE
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                                 val dialog3 = AlertDialog.Builder(this@Peminjaman_AS)
                                 dialog3.setTitle("Submit Gagal!")
                                 dialog3.setMessage("Data Tidak Lengkap")
@@ -633,6 +655,10 @@ class Peminjaman_AS : AppCompatActivity() {
                 //main()
                 //getNama(res)
 
+                runOnUiThread {
+                    pb_peminjamanAS.visibility = View.GONE
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
 
             }
 
