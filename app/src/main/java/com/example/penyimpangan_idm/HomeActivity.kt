@@ -94,12 +94,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
         imageButton4.setOnClickListener{
-            if(JabatanToko!!.contains("Kepala Toko (Ss)")
-                || JabatanToko!!.contains("Kepala Toko")
-                || JabatanToko!!.contains("Asisten Kepala Toko (Ss)")
-                || JabatanToko!!.contains("Asisten Kepala Toko")
-                || JabatanToko!!.contains("Merchandiser (Ss)")
-                || JabatanToko!!.contains("Merchandiser")
+            if(JabatanToko!!.contains("N5")
+                || JabatanToko!!.contains("N5K")
+                || JabatanToko!!.contains("N6")
+                || JabatanToko!!.contains("N6K")
+                || JabatanToko!!.contains("N7")
+                || JabatanToko!!.contains("N7K")
             ){
                 val intent = Intent(this@HomeActivity, InputSPL::class.java)
                 intent.putExtra("nik",nik)
