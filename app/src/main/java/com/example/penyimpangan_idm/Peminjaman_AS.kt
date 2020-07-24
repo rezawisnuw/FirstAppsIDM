@@ -90,6 +90,10 @@ var PostData : String?=""
 var TglAkhirminsatu : Int = 0
 var Hari4 = arrayOf("")
 
+var getInpTokoTujuanbyAS: String? = ""
+var getInpTglMulaiPinjambyAS: String? = ""
+var getInpTglSelesaiPinjambyAS: String? = ""
+
 class Peminjaman_AS : AppCompatActivity() {
     var button: Button? = null
     var button3 : Button? = null
@@ -185,6 +189,7 @@ class Peminjaman_AS : AppCompatActivity() {
                 // val tgl_pjm = intent.putExtra("tgl_pjm",  button!!.text as String?)
                 val url3 = "https://hrindomaret.com/api/postpinjam/submit"
                 val nik = intent.getStringExtra("nik")
+                messageDialog(nik, Nikkaryawan, "alert")
                 val param3 = JSONObject()
                 param3.put("nik_kary", Nikkaryawan)
                 param3.put("kodetk_asl", TkAsl)
@@ -233,7 +238,7 @@ class Peminjaman_AS : AppCompatActivity() {
 
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AS)
                                 dialog2.setTitle("Submit Gagal!")
-                                dialog2.setMessage("Sudah ada data peminjaman di toko $Tktujuan selama $JmlHari hari pada tanggal " + button!!.text as String?)
+                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAS pada tanggal $getInpTglMulaiPinjambyAS hingga tanggal $getInpTglSelesaiPinjambyAS)
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
                                     Toast.makeText(
                                         this@Peminjaman_AS,
@@ -668,6 +673,44 @@ class Peminjaman_AS : AppCompatActivity() {
         })
 
 
+    }
+
+    fun messageDialog(nik:String, nikkary:String?, attribute:String) {
+        val url = "https://hrindomaret.com/api/getpinjam/history"
+
+        val cred = JSONObject()
+        cred.put("nik",nik)
+        cred.put("nikkary",nikkary)
+        cred.put("attribute",attribute)
+        val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val post = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val resp = response.body?.string()
+
+                val jsonArray = JSONArray(resp)
+                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                val dataTokoTujuan= jsonObject.get("TokoTujuan")
+                val dataTglMulaiPinjam= jsonObject.get("TglMulaiDipinjam")
+                val dataTglSelesaiPinjam= jsonObject.get("TglSelesaiDipinjam")
+
+                getInpTokoTujuanbyAS = dataTokoTujuan.toString()
+                getInpTglMulaiPinjambyAS = dataTglMulaiPinjam.toString()
+                getInpTglSelesaiPinjambyAS = dataTglSelesaiPinjam.toString()
+
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
     data class Feed(@SerializedName("ListToko") val feed: List<ListToko1>,

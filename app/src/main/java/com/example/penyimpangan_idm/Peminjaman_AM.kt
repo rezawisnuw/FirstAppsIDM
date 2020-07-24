@@ -115,6 +115,9 @@ var TglAkhirAm : Int = 0
 var TglAkhirminsatuAm: Int = 0
 var DataSubmit: String? = ""
 
+var getInpTokoTujuanbyAM: String? = ""
+var getInpTglMulaiPinjambyAM: String? = ""
+var getInpTglSelesaiPinjambyAM: String? = ""
 
 class Peminjaman_AM : AppCompatActivity(){
     var cal = Calendar.getInstance()
@@ -198,6 +201,7 @@ class Peminjaman_AM : AppCompatActivity(){
                 // val tgl_pjm = intent.putExtra("tgl_pjm",  button!!.text as String?)
                 val url3 = "https://hrindomaret.com/api/postpinjam/submit"
                 val nik = intent.getStringExtra("nik")
+                messageDialog(nik, Nikkaryawan, "alert")
                 val param3 = JSONObject()
                 param3.put("nik_kary", KaryawanTokoG)
                 param3.put("kodetk_asl", TokoAsalG)
@@ -251,7 +255,7 @@ class Peminjaman_AM : AppCompatActivity(){
 
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AM)
                                 dialog2.setTitle("Submit Gagal!")
-                                dialog2.setMessage("Sudah ada data peminjaman di toko $TokoTujuanG selama $JumlahHari hari pada tanggal" + date!!.text as String?)
+                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM hingga tanggal $getInpTglSelesaiPinjambyAM")
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
                                     Toast.makeText(
                                         this@Peminjaman_AM,
@@ -298,8 +302,12 @@ class Peminjaman_AM : AppCompatActivity(){
             override fun onClick(v: View) {
                 val urlhistory = "https://hrindomaret.com/api/getpinjam/history"
                 val nik = intent.getStringExtra("nik")
+                val nikkary = intent.getStringExtra(KaryawanTokoG)
+                val attribute = intent.getStringExtra("history")
                 val param = JSONObject()
                 param.put("nik", nik)
+                param.put("nikkary", nikkary)
+                param.put("attribute", attribute)
                 val formbody = param.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val post = Request.Builder().url(urlhistory).post(formbody).build()
@@ -983,5 +991,42 @@ class Peminjaman_AM : AppCompatActivity(){
         date!!.text = sdf.format(cal.time)
         //fetchJson(KODE_TOKO = String())
 
+    }
+    fun messageDialog(nik:String, nikkary:String?, attribute:String) {
+        val url = "https://hrindomaret.com/api/getpinjam/history"
+
+        val cred = JSONObject()
+        cred.put("nik",nik)
+        cred.put("nikkary",nikkary)
+        cred.put("attribute",attribute)
+        val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val post = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val resp = response.body?.string()
+
+                val jsonArray = JSONArray(resp)
+                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                val dataTokoTujuan= jsonObject.get("TokoTujuan")
+                val dataTglMulaiPinjam= jsonObject.get("TglMulaiDipinjam")
+                val dataTglSelesaiPinjam= jsonObject.get("TglSelesaiDipinjam")
+
+                getInpTokoTujuanbyAM = dataTokoTujuan.toString()
+                getInpTglMulaiPinjambyAM = dataTglMulaiPinjam.toString()
+                getInpTglSelesaiPinjambyAM = dataTglSelesaiPinjam.toString()
+
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 }
