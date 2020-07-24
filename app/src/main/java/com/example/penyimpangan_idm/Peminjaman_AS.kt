@@ -238,7 +238,7 @@ class Peminjaman_AS : AppCompatActivity() {
 
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AS)
                                 dialog2.setTitle("Submit Gagal!")
-                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAS pada tanggal $getInpTglMulaiPinjambyAS hingga tanggal $getInpTglSelesaiPinjambyAS)
+                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAS pada tanggal $getInpTglMulaiPinjambyAS hingga tanggal $getInpTglSelesaiPinjambyAS")
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
                                     Toast.makeText(
                                         this@Peminjaman_AS,
