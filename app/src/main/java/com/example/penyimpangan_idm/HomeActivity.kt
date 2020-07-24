@@ -100,6 +100,12 @@ class HomeActivity : AppCompatActivity() {
                 || JabatanToko!!.contains("N6K")
                 || JabatanToko!!.contains("N7")
                 || JabatanToko!!.contains("N7K")
+                || JabatanToko!!.contains("HA")
+                || JabatanToko!!.contains("HAK")
+                || JabatanToko!!.contains("HF")
+                || JabatanToko!!.contains("HFK")
+                || JabatanToko!!.contains("NH")
+                || JabatanToko!!.contains("NHK")
             ){
                 val intent = Intent(this@HomeActivity, InputSPL::class.java)
                 intent.putExtra("nik",nik)
