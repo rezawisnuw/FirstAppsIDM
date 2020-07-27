@@ -133,11 +133,8 @@ class Peminjaman_AM : AppCompatActivity(){
         submit = this.SubmitButton
         history = this.Historybutton
 
-        pb_peminjamanAM.visibility = View.VISIBLE
-        getWindow().setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        )
+        pb_peminjamanAM.visibility = View.GONE
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
@@ -150,7 +147,7 @@ class Peminjaman_AM : AppCompatActivity(){
                 updateDateInView()
                 date()
                 //println(date())
-
+                AsAsal()
 
             }
 
@@ -178,6 +175,11 @@ class Peminjaman_AM : AppCompatActivity(){
 
 //                dialog.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dialog.show()
+                pb_peminjamanAM.visibility = View.VISIBLE
+                getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                );
             }
         })
         submit!!.setOnClickListener(object : View.OnClickListener {
@@ -201,7 +203,6 @@ class Peminjaman_AM : AppCompatActivity(){
                 // val tgl_pjm = intent.putExtra("tgl_pjm",  button!!.text as String?)
                 val url3 = "https://hrindomaret.com/api/postpinjam/submit"
                 val nik = intent.getStringExtra("nik")
-                messageDialog(nik, Nikkaryawan, "alert")
                 val param3 = JSONObject()
                 param3.put("nik_kary", KaryawanTokoG)
                 param3.put("kodetk_asl", TokoAsalG)
@@ -230,7 +231,6 @@ class Peminjaman_AM : AppCompatActivity(){
                             runOnUiThread {
                                 pb_peminjamanAM.visibility = View.GONE
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
                                 val dialog1 = AlertDialog.Builder(this@Peminjaman_AM)
                                 dialog1.setTitle("Submit Berhasil!")
                                 dialog1.setMessage("Data Telah Tersubmit")
@@ -250,12 +250,12 @@ class Peminjaman_AM : AppCompatActivity(){
 
                         } else if (body!!.toString().contains("Gagal")) {
                             runOnUiThread {
+                                messageDialog(nik, Nikkaryawan, "alert")
                                 pb_peminjamanAM.visibility = View.GONE
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AM)
                                 dialog2.setTitle("Submit Gagal!")
-                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM hingga tanggal $getInpTglSelesaiPinjambyAM")
+                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM")
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
                                     Toast.makeText(
                                         this@Peminjaman_AM,
@@ -273,7 +273,6 @@ class Peminjaman_AM : AppCompatActivity(){
                             runOnUiThread {
                                 pb_peminjamanAM.visibility = View.GONE
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
                                 val dialog3 = AlertDialog.Builder(this@Peminjaman_AM)
                                 dialog3.setTitle("Submit Gagal!")
                                 dialog3.setMessage("Data Tidak Lengkap")
@@ -392,7 +391,6 @@ class Peminjaman_AM : AppCompatActivity(){
 //            })
 
 //        }
-        AsAsal()
 
 
     }
@@ -704,7 +702,6 @@ class Peminjaman_AM : AppCompatActivity(){
                     pb_peminjamanAM.visibility = View.GONE
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
-
             }
 
             override fun onFailure(call: Call, e: IOException) {
@@ -768,7 +765,7 @@ class Peminjaman_AM : AppCompatActivity(){
         //val kodetk_asl1 = intent.putExtra("kodetoko","kosong")
         val param = JSONObject()
         param.put("kodetoko", TokoAsalG)
-
+        param.put("tglshift", date!!.text as String?)
         //val param3 = JSONObject()
         // param3.put("nik","2015035527")
         //param3.put("kodetoko","")
@@ -992,6 +989,7 @@ class Peminjaman_AM : AppCompatActivity(){
         //fetchJson(KODE_TOKO = String())
 
     }
+
     fun messageDialog(nik:String, nikkary:String?, attribute:String) {
         val url = "https://hrindomaret.com/api/getpinjam/history"
 
