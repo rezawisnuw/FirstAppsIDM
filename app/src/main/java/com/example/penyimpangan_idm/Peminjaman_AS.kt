@@ -612,7 +612,10 @@ class Peminjaman_AS : AppCompatActivity() {
                 respon.listTokotj = body
                 ListTokotj.setTokotj(respon)
                 test1(respon)
-
+                runOnUiThread {
+                    pb_peminjamanAS.visibility = View.GONE
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
             }
         })
     }
@@ -659,10 +662,7 @@ class Peminjaman_AS : AppCompatActivity() {
                 //test1(res)
                 //main()
                 //getNama(res)
-                runOnUiThread {
-                    pb_peminjamanAS.visibility = View.GONE
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
+
             }
 
             override fun onFailure(call: Call, e: IOException) {

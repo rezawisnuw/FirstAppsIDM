@@ -698,10 +698,6 @@ class Peminjaman_AM : AppCompatActivity(){
                 //test1(res)
                 //main()
                 //getNama(res)
-                runOnUiThread {
-                    pb_peminjamanAM.visibility = View.GONE
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
             }
 
             override fun onFailure(call: Call, e: IOException) {
@@ -900,7 +896,10 @@ class Peminjaman_AM : AppCompatActivity(){
                 //test1(res)
                 //main()
                 //getNama(res)
-
+                runOnUiThread {
+                    pb_peminjamanAM.visibility = View.GONE
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
 
             }
 
