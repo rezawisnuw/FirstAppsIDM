@@ -701,14 +701,16 @@ class Peminjaman_AS : AppCompatActivity() {
                 val resp = response.body?.string()
                 println("santuuy"+resp)
                 val jsonArray = JSONArray(resp)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                val dataTokoTujuan= jsonObject.get("TokoTujuan")
-                val dataTglMulaiPinjam= jsonObject.get("TglMulaiDipinjam")
-                val dataTglSelesaiPinjam= jsonObject.get("TglSelesaiDipinjam")
+                if (resp != "[]"){
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val dataTokoTujuan= jsonObject.get("TokoTujuan")
+                    val dataTglMulaiPinjam= jsonObject.get("TglMulaiDipinjam")
+                    val dataTglSelesaiPinjam= jsonObject.get("TglSelesaiDipinjam")
 
-                getInpTokoTujuanbyAS = dataTokoTujuan.toString()
-                getInpTglMulaiPinjambyAS = dataTglMulaiPinjam.toString()
-                getInpTglSelesaiPinjambyAS = dataTglSelesaiPinjam.toString()
+                    getInpTokoTujuanbyAS = dataTokoTujuan.toString()
+                    getInpTglMulaiPinjambyAS = dataTglMulaiPinjam.toString()
+                    getInpTglSelesaiPinjambyAS = dataTglSelesaiPinjam.toString()
+                }
 
                 println("asuuue"+nikkary)
 
