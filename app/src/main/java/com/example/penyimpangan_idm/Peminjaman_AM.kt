@@ -250,7 +250,6 @@ class Peminjaman_AM : AppCompatActivity(){
 
                         } else if (body!!.toString().contains("Gagal")) {
                             runOnUiThread {
-                                messageDialog(nik, Nikkaryawan, "alert")
                                 pb_peminjamanAM.visibility = View.GONE
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AM)
@@ -907,6 +906,8 @@ class Peminjaman_AM : AppCompatActivity(){
                 runOnUiThread {
                     pb_peminjamanAM.visibility = View.GONE
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    val nik = intent.getStringExtra("nik")
+                    messageDialog(nik, KaryawanTokoG, "alert")
                 }
 
             }
