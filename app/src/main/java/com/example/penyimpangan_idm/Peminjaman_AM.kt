@@ -255,7 +255,15 @@ class Peminjaman_AM : AppCompatActivity(){
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 val dialog2 = AlertDialog.Builder(this@Peminjaman_AM)
                                 dialog2.setTitle("Submit Gagal!")
-                                dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM")
+                                if(getInpTokoTujuanbyAM == ""){
+                                    dialog2.setMessage(
+                                        "Karyawan yang dipinjam sedang dalam kondisi OFF pada tanggal selanjutnya"
+                                    )
+                                }
+                                else{
+                                    dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM")
+                                }
+
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
                                     Toast.makeText(
                                         this@Peminjaman_AM,
@@ -1010,14 +1018,16 @@ class Peminjaman_AM : AppCompatActivity(){
                 val resp = response.body?.string()
 
                 val jsonArray = JSONArray(resp)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                val dataTokoTujuan= jsonObject.get("TokoTujuan")
-                val dataTglMulaiPinjam= jsonObject.get("TglMulaiDipinjam")
-                val dataTglSelesaiPinjam= jsonObject.get("TglSelesaiDipinjam")
+                if(resp != "[]"){
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val dataTokoTujuan= jsonObject.get("TokoTujuan")
+                    val dataTglMulaiPinjam= jsonObject.get("TglMulaiDipinjam")
+                    val dataTglSelesaiPinjam= jsonObject.get("TglSelesaiDipinjam")
 
-                getInpTokoTujuanbyAM = dataTokoTujuan.toString()
-                getInpTglMulaiPinjambyAM = dataTglMulaiPinjam.toString()
-                getInpTglSelesaiPinjambyAM = dataTglSelesaiPinjam.toString()
+                    getInpTokoTujuanbyAM = dataTokoTujuan.toString()
+                    getInpTglMulaiPinjambyAM = dataTglMulaiPinjam.toString()
+                    getInpTglSelesaiPinjambyAM = dataTglSelesaiPinjam.toString()
+                }
 
             }
 
