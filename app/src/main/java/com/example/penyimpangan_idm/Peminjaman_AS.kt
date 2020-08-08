@@ -673,7 +673,7 @@ class Peminjaman_AS : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("gak bisa bhambank")
+                println("Data Toko AS Tidak Tertarik")
             }
         })
 
