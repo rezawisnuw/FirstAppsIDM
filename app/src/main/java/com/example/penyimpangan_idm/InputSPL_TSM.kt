@@ -47,8 +47,8 @@ class InputSPL_TSM : AppCompatActivity() {
         et_keteranganlembur.hint = "Isi Tugas"
 
         val nik = intent.getStringExtra("nik")
-        getKaryawanCabang(nik)
-        SpinnerShift()
+        getAtasanCabang(nik)
+//        SpinnerShift()
 
         textview_date = this.tv_calendar
         button_date = this.btn_calendar
@@ -190,8 +190,8 @@ class InputSPL_TSM : AppCompatActivity() {
         DateInput = sdf.format(cal.time)
     }
 
-    fun getKaryawanCabang(nik:String){
-        val url = "https://hrindomaret.com/api/getdata/listkaryawancabang"
+    fun getAtasanCabang(nik:String){
+        val url = "https://hrindomaret.com/api/getdata/listatasancabang"
 
         val cred = JSONObject()
         cred.put("nik",nik)
@@ -214,12 +214,12 @@ class InputSPL_TSM : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val resp = response.body?.string()
                 println(resp)
-                SpinnerKaryawanCabang(resp)
+                SpinnerAtasanCabang(resp)
             }
         })
     }
 
-    fun SpinnerKaryawanCabang(list:String?){
+    fun SpinnerAtasanCabang(list:String?){
         val spinnerKaryawan =  findViewById<Spinner>(R.id.spinner)
 
         val listKaryawanArray = arrayListOf<String?>()
@@ -230,14 +230,14 @@ class InputSPL_TSM : AppCompatActivity() {
 
         for(i in 0 until listKaryawan.length()){
             val jsonobjectkaryawan =listKaryawan.getJSONObject(i)
-            val karyawan = jsonobjectkaryawan.getString("KaryawanCabang")
+            val karyawan = jsonobjectkaryawan.getString("AtasanCabang")
 
             listKaryawanArray.add(karyawan)
         }
 
         println("LIST " + list)
-        println("LISTKARYAWANARRAY " + listKaryawanArray[0])
-        println("LISTKARYAWAN " + listKaryawan)
+        println("LISTATASANARRAY " + listKaryawanArray[0])
+        println("LISTATASAN " + listKaryawan)
 
         val KaryawanAdapter = ArrayAdapter(
             this, // Context
@@ -264,37 +264,37 @@ class InputSPL_TSM : AppCompatActivity() {
 
     }
 
-    fun SpinnerShift(){
-        val spinnerShift = findViewById<Spinner>(R.id.spinner2)
-
-        val ShiftArrays = arrayListOf<Int>()
-        ShiftArrays.add(1)
-        ShiftArrays.add(2)
-        ShiftArrays.add(3)
-
-        val ShiftAdapter  = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            ShiftArrays
-        )
-
-        ShiftAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
-        this.runOnUiThread {
-            spinnerShift.adapter = ShiftAdapter
-        }
-
-        spinnerShift?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = ShiftArrays[position]
-                shift = ShiftArrays[position]
-//                println("SHIFT :" + shift)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                print("Not There")
-            }
-        }
-    }
+//    fun SpinnerShift(){
+//        val spinnerShift = findViewById<Spinner>(R.id.spinner2)
+//
+//        val ShiftArrays = arrayListOf<Int>()
+//        ShiftArrays.add(1)
+//        ShiftArrays.add(2)
+//        ShiftArrays.add(3)
+//
+//        val ShiftAdapter  = ArrayAdapter(
+//            this,
+//            android.R.layout.simple_spinner_item,
+//            ShiftArrays
+//        )
+//
+//        ShiftAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+//        this.runOnUiThread {
+//            spinnerShift.adapter = ShiftAdapter
+//        }
+//
+//        spinnerShift?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val selectedItem = ShiftArrays[position]
+//                shift = ShiftArrays[position]
+////                println("SHIFT :" + shift)
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//                print("Not There")
+//            }
+//        }
+//    }
 
     fun SubmitSPL(){
         btn_inputsplTSM.isEnabled = false
