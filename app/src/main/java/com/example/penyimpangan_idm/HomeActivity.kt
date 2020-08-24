@@ -20,6 +20,7 @@ import java.util.*
 
 var ASAM:String? = ""
 var JabatanToko:String? = ""
+var JabatanCabang:String? = ""
 
 class HomeActivity : AppCompatActivity() {
 
@@ -38,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
 
         isASAM(nik)
         isJabatanToko(nik)
+        isJabatanCabang(nik)
 
         imageButton.setOnClickListener{
             runOnUiThread {
@@ -112,9 +114,21 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent)
 
             } else{
-                val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
-                intent.putExtra("nik",nik)
-                startActivity(intent)
+
+                if(JabatanCabang!!.contains("manager_cabang")
+                    || JabatanToko!!.contains("supervisor")
+                    || JabatanToko!!.contains("hrapproval")
+                ){
+                    val intent = Intent(this@HomeActivity, InputSPL_TSM::class.java)
+                    intent.putExtra("nik",nik)
+                    startActivity(intent)
+
+                }else{
+                    val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
+                    intent.putExtra("nik",nik)
+                    startActivity(intent)
+                }
+
             }
         }
     }
@@ -177,6 +191,39 @@ class HomeActivity : AppCompatActivity() {
                 val dataJabatan = jsonArray.getJSONObject(0).get("JabatanToko")
 
                 JabatanToko = dataJabatan.toString()
+
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+    }
+
+    fun isJabatanCabang(nik:String){
+        val url = "https://hrindomaret.com/api/getdata/jabatancabangspl"
+
+        val cred = JSONObject()
+        cred.put("nik",nik)
+
+        val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val post = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val resp = response.body?.string()
+
+                val jsonObject = JSONObject(resp).getString("data")
+                val jsonArray = JSONArray(jsonObject)
+                val dataJabatan = jsonArray.getJSONObject(0).get("JabatanCabang")
+
+                JabatanCabang = dataJabatan.toString()
 
             }
 
