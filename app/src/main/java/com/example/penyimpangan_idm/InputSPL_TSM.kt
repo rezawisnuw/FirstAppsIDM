@@ -47,7 +47,7 @@ class InputSPL_TSM : AppCompatActivity() {
         et_keteranganlembur.hint = "Isi Tugas"
 
         val nik = intent.getStringExtra("nik")
-        getKaryawanToko(nik)
+        getKaryawanCabang(nik)
         SpinnerShift()
 
         textview_date = this.tv_calendar
@@ -190,8 +190,8 @@ class InputSPL_TSM : AppCompatActivity() {
         DateInput = sdf.format(cal.time)
     }
 
-    fun getKaryawanToko(nik:String){
-        val url = "https://hrindomaret.com/api/getdata/listkaryawantoko"
+    fun getKaryawanCabang(nik:String){
+        val url = "https://hrindomaret.com/api/getdata/listkaryawancabang"
 
         val cred = JSONObject()
         cred.put("nik",nik)
@@ -214,12 +214,12 @@ class InputSPL_TSM : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val resp = response.body?.string()
                 println(resp)
-                SpinnerKaryawanToko(resp)
+                SpinnerKaryawanCabang(resp)
             }
         })
     }
 
-    fun SpinnerKaryawanToko(list:String?){
+    fun SpinnerKaryawanCabang(list:String?){
         val spinnerKaryawan =  findViewById<Spinner>(R.id.spinner)
 
         val listKaryawanArray = arrayListOf<String?>()
@@ -230,7 +230,7 @@ class InputSPL_TSM : AppCompatActivity() {
 
         for(i in 0 until listKaryawan.length()){
             val jsonobjectkaryawan =listKaryawan.getJSONObject(i)
-            val karyawan = jsonobjectkaryawan.getString("KaryawanToko")
+            val karyawan = jsonobjectkaryawan.getString("KaryawanCabang")
 
             listKaryawanArray.add(karyawan)
         }

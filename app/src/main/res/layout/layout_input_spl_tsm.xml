@@ -13,66 +13,94 @@
         tools:context=".InputSPL_TSM">
 
 
+        <!--        app:layout_constraintBottom_toTopOf="@+id/sp_karyawan"/>-->
+
+
+        <!--        <Spinner-->
+        <!--            android:id="@+id/sp_karyawan"-->
+        <!--            android:layout_width="fill_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="160dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        app:layout_constraintTop_toBottomOf="@+id/sp_karyawan" />-->
+
+        <TextView
+            android:id="@+id/tv_atasan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Atasan :"
+            app:layout_constraintBottom_toTopOf="@+id/sp_atasan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <Spinner
             android:id="@+id/sp_atasan"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/sp_karyawan"
+            android:layout_marginTop="68dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.453" />
-
-        <Spinner
-            android:id="@+id/sp_karyawan"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_karyawan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Karyawan :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_atasan" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_inputspltsm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_calendar"
+            app:layout_constraintTop_toBottomOf="@+id/tv_karyawan"
+            tools:layout_editor_absoluteX="0dp" />
 
         <Button
             android:id="@+id/btn_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:text="Pilih Tanggal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_karyawan"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.363" />
 
         <TextView
             android:id="@+id/tv_jamIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
             android:clickable="false"
             android:text="Jam In"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_jamOut"
-            app:layout_constraintHorizontal_bias="0.017"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_jamIn"
-            app:layout_constraintVertical_bias="0.057" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_jamIn" />
 
         <TextView
             android:id="@+id/tv_jamOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
             android:text="Jam Out"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_jamOut"
-            app:layout_constraintVertical_bias="0.057" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_jamOut" />
 
         <TextView
             android:id="@+id/tv_calendar"
@@ -89,16 +117,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
 
-        <TextView
-            android:id="@+id/tv_shift"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Karyawan :"
-            app:layout_constraintBottom_toTopOf="@+id/sp_karyawan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_atasan"
-            app:layout_constraintVertical_bias="1.0" />
+        <!--            app:layout_constraintBottom_toTopOf="@+id/sp_karyawan"/>-->
 
         <Button
             android:id="@+id/btn_inputsplTSM"
@@ -112,13 +131,13 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_keteranganlembur"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
             android:id="@+id/et_keteranganlembur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="190dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="Keterangan Lembur"
@@ -126,18 +145,17 @@
             android:maxLines="3"
             android:minLines="1"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_jamIn" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_calendar" />
 
         <Button
             android:id="@+id/btn_jamIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="52dp"
             android:text="Jam In"
-            app:layout_constraintEnd_toStartOf="@+id/btn_jamOut"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_calendar" />
 
@@ -145,8 +163,8 @@
             android:id="@+id/btn_jamOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="20dp"
             android:text="Jam Out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_calendar" />
@@ -158,18 +176,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_atasan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Atasan :"
-            app:layout_constraintBottom_toTopOf="@+id/sp_atasan"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.563" />
 
     </androidx.constraintlayout.widget.ConstraintLayout></ScrollView>

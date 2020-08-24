@@ -204,7 +204,7 @@ class HomeActivity : AppCompatActivity() {
         val url = "https://hrindomaret.com/api/getdata/jabatancabangspl"
 
         val cred = JSONObject()
-        cred.put("nik",nik)
+        cred.put("nik","1997000202")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
