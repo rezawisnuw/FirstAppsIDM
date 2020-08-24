@@ -116,8 +116,8 @@ class HomeActivity : AppCompatActivity() {
             } else{
 
                 if(JabatanCabang!!.contains("manager_cabang")
-                    || JabatanToko!!.contains("supervisor")
-                    || JabatanToko!!.contains("hrapproval")
+                    || JabatanCabang!!.contains("supervisor")
+                    || JabatanCabang!!.contains("hrapproval")
                 ){
                     val intent = Intent(this@HomeActivity, InputSPL_TSM::class.java)
                     intent.putExtra("nik",nik)
