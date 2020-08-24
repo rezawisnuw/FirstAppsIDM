@@ -41,6 +41,7 @@
         <activity android:name=".HistoryPeminjaman" />
         <activity android:name=".ApprovalSPL" />
         <activity android:name=".InputSPL" />
+        <activity android:name=".InputSPL_TSM" />
     </application>
 
 </manifest>
