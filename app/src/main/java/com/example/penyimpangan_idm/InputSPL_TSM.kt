@@ -9,6 +9,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_input_spl_tsm.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -35,6 +37,9 @@ class InputSPL_TSM : AppCompatActivity() {
     var DateInput: Any? = null
     var selected: Any? = null
     var shift: Any? = null
+
+    var NikAtasan : String? = ""
+    var Kategori : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -194,7 +199,7 @@ class InputSPL_TSM : AppCompatActivity() {
         val url = "https://hrindomaret.com/api/getdata/listatasancabang"
 
         val cred = JSONObject()
-        cred.put("nik",nik)
+        cred.put("nik","1997000202")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -213,31 +218,36 @@ class InputSPL_TSM : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val resp = response.body?.string()
-                println(resp)
+                println("inputspltsm"+resp)
                 SpinnerAtasanCabang(resp)
             }
         })
     }
 
     fun SpinnerAtasanCabang(list:String?){
-        val spinnerKaryawan =  findViewById<Spinner>(R.id.spinner)
+        val spinnerKaryawan =  findViewById<Spinner>(R.id.sp_atasan)
 
         val listKaryawanArray = arrayListOf<String?>()
+        val listKategoriArray = arrayListOf<String?>()
 
         val jsonobject = JSONObject(list)
 
-        var listKaryawan = jsonobject.getJSONArray("data")
+        var listData = jsonobject.getJSONArray("data")
 
-        for(i in 0 until listKaryawan.length()){
-            val jsonobjectkaryawan =listKaryawan.getJSONObject(i)
-            val karyawan = jsonobjectkaryawan.getString("AtasanCabang")
+        for(i in 0 until listData.length()){
+            val jsonobjectdata = listData.getJSONObject(i)
+            val karyawan = jsonobjectdata.getString("AtasanCabang")
+            val kategori = jsonobjectdata.getString("Kategori")
 
             listKaryawanArray.add(karyawan)
+            listKategoriArray.add(kategori)
         }
 
         println("LIST " + list)
         println("LISTATASANARRAY " + listKaryawanArray[0])
-        println("LISTATASAN " + listKaryawan)
+        println("LISTDATA " + listData)
+        println("LISTKATEGORIARRAY " + listKategoriArray[0])
+
 
         val KaryawanAdapter = ArrayAdapter(
             this, // Context
@@ -248,6 +258,13 @@ class InputSPL_TSM : AppCompatActivity() {
         KaryawanAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         this.runOnUiThread {
             spinnerKaryawan.adapter = KaryawanAdapter
+
+            when (listKategoriArray[0]) {
+                "manager_cabang" -> tv_atasan.text = "Cabang :"
+                "supervisor" -> tv_atasan.text = "Atasan :"
+                else -> tv_atasan.text = this.toString()
+            }
+
         }
 
         spinnerKaryawan?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -256,45 +273,71 @@ class InputSPL_TSM : AppCompatActivity() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = listKaryawanArray[position]
+                val karyawanselected = listKaryawanArray[position]
+                val kategoriselected = listKategoriArray[position]
+
                 selected = listKaryawanArray[position]
                 //textView2.text = selectedItem!!.substringAfter('/')
+
+                NikAtasan = karyawanselected
+                Kategori = kategoriselected
+
+                getKaryawanCabang()
             }
         }
 
     }
 
-//    fun SpinnerShift(){
-//        val spinnerShift = findViewById<Spinner>(R.id.spinner2)
+    fun getKaryawanCabang() {
+        val url = "https://hrindomaret.com/api/getdata/listkaryawancabang"
+        val param = JSONObject()
+        param.put("nikatasan",  NikAtasan)
+        param.put("kategori",  Kategori)
+
+        val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val post = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+
+                val body = response.body?.string()
+                println("body"+body)
+//                val Jobject = JSONObject(body)
+//                val Jarray: JSONArray = Jobject.getJSONArray("data")
 //
-//        val ShiftArrays = arrayListOf<Int>()
-//        ShiftArrays.add(1)
-//        ShiftArrays.add(2)
-//        ShiftArrays.add(3)
+//                println("Jarray"+Jarray)
 //
-//        val ShiftAdapter  = ArrayAdapter(
-//            this,
-//            android.R.layout.simple_spinner_item,
-//            ShiftArrays
-//        )
-//
-//        ShiftAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
-//        this.runOnUiThread {
-//            spinnerShift.adapter = ShiftAdapter
-//        }
-//
-//        spinnerShift?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val selectedItem = ShiftArrays[position]
-//                shift = ShiftArrays[position]
-////                println("SHIFT :" + shift)
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                print("Not There")
-//            }
-//        }
-//    }
+//                for (i in 0 until Jarray.length()) {
+//                    val datalist = Jarray.getJSONObject(i)
+//                    println("datalist"+datalist)
+//                }
+
+                val gson = GsonBuilder().create()
+                //val databody = gson.toJson(Jarray)
+                //val listspl: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
+                val listspl = gson.fromJson(body, ApprovalSPL.Feed::class.java)
+                //println("asdasd " + listspl)
+
+                runOnUiThread {
+                    pb_inputsplTSM.visibility = View.GONE
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    //rv_approvalspl.adapter = RecyclerApprovalSPL(listspl)
+                }
+
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Hasil Error")
+            }
+        })
+
+    }
 
     fun SubmitSPL(){
         btn_inputsplTSM.isEnabled = false
