@@ -4,7 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.layout_rv_approval_spl.view.*
 import kotlinx.android.synthetic.main.layout_rv_history_peminjaman.view.*
+
+var getDataKaryawanHistoryPeminjaman:MutableList<String?> = ArrayList()
+var getTokoAsalHistoryPeminjaman:MutableList<String?> = ArrayList()
+var getTokoTujuanHistoryPeminjaman:MutableList<String?> = ArrayList()
+var getTglMulaiDipinjamHistoryPeminjaman:MutableList<String?> = ArrayList()
+var getTglSelesaiDipinjamHistoryPeminjaman:MutableList<String?> = ArrayList()
+
+var getCheckedHistoryPeminjaman:MutableList<String?> = ArrayList()
+var getJsonHistoryPeminjaman:MutableList<String?> = ArrayList()
 
 class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPeminjaman>): RecyclerView.Adapter<CustomViewHolder>(){
     //val test = listOf("qqq","www","aaa")
@@ -29,6 +40,40 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
         holder.view.tv_res_tokotujuan.text = res.TokoTujuan
         holder.view.tv_res_tglmulaipinjam.text = res.TglMulaiDipinjam
         holder.view.tv_res_tglselesaipinjam.text = res.TglSelesaiDipinjam
+
+        holder.view.ck_history.setOnClickListener {
+            var gson = GsonBuilder().create().toJson(res)
+            var gsonDataKaryawan = GsonBuilder().create().toJson(res.DataKaryawan)
+            var gsonTokoAsal = GsonBuilder().create().toJson(res.TokoAsal)
+            var gsonTokoTujuan = GsonBuilder().create().toJson( res.TokoTujuan)
+            var gsonTglMulaiDipinjam = GsonBuilder().create().toJson(res.TglMulaiDipinjam)
+            var gsonTglSelesaiDipinjam = GsonBuilder().create().toJson(res.TglSelesaiDipinjam)
+
+            if(holder.view.ck_history.isChecked) {
+                getCheckedHistoryPeminjaman.add(res.toString())
+                getJsonHistoryPeminjaman.add(gson)
+
+                getDataKaryawanHistoryPeminjaman.add(gsonDataKaryawan)
+                getTokoAsalHistoryPeminjaman.add(gsonTokoAsal)
+                getTokoTujuanHistoryPeminjaman.add(gsonTokoTujuan)
+                getTglMulaiDipinjamHistoryPeminjaman.add(gsonTglMulaiDipinjam)
+                getTglSelesaiDipinjamHistoryPeminjaman.add(gsonTglSelesaiDipinjam)
+            } else {
+                if(getCheckedHistoryPeminjaman.contains(res.toString())){
+                    getCheckedHistoryPeminjaman.remove(res.toString())
+                    getJsonHistoryPeminjaman.remove(gson)
+
+                    getDataKaryawan.remove(gsonDataKaryawan)
+                    getTokoAsalHistoryPeminjaman.remove(gsonTokoAsal)
+                    getTokoTujuanHistoryPeminjaman.remove(gsonTokoTujuan)
+                    getTglMulaiDipinjamHistoryPeminjaman.remove(gsonTglMulaiDipinjam)
+                    getTglSelesaiDipinjamHistoryPeminjaman.remove(gsonTglSelesaiDipinjam)
+                }
+            }
+            println("GSOOOONN "+ GsonBuilder().create().toJson(res))
+            println("JsonCheckeeed" + getJsonHistoryPeminjaman)
+            println("position "+position)
+        }
 
 //        holder.view.tv_res_karyawan.text = "res.DataKaryawan"
 //        holder.view.tv_res_tokoasal.text = "res.TokoAsal"

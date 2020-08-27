@@ -3,12 +3,15 @@ package com.example.penyimpangan_idm
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_history_peminjaman.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -28,6 +31,10 @@ class HistoryPeminjaman : AppCompatActivity() {
 
 
         getHistory()
+
+        btn_deletehistory.setOnClickListener {
+            deleteHistory()
+        }
     }
 
     fun getHistory() {
@@ -55,6 +62,59 @@ class HistoryPeminjaman : AppCompatActivity() {
                     rv_historypeminjaman.adapter = RecyclerHistoryPeminjaman(feed)
                 }
 
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Hasil Error")
+            }
+        })
+    }
+
+    fun deleteHistory() {
+        val url = "https://hrindomaret.com/api/postpinjam/delete"
+
+        val DataKaryawan = getDataKaryawanHistoryPeminjaman
+        val TokoAsal = getTokoAsalHistoryPeminjaman
+        val TokoTujuan = getTokoTujuanHistoryPeminjaman
+        val TglMulaiPinjam = getTglMulaiDipinjamHistoryPeminjaman
+        val TglSelesaiPinjam = getTglSelesaiDipinjamHistoryPeminjaman
+
+        val Nik = intent.getStringExtra("nik")
+        val Param = JSONObject()
+
+        Param.put("dtkaryawan", DataKaryawan)
+        Param.put("tkasal", TokoAsal)
+        Param.put("tktujuan", TokoTujuan)
+        Param.put("tglmulaipinjam", TglMulaiPinjam)
+        Param.put("tglselesaipinjam", TglSelesaiPinjam)
+        Param.put("nik", Nik)
+
+        val formbody = Param.toString().toRequestBody()
+        val post2 = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post2).enqueue(object: Callback {
+            override fun onResponse(call: Call, response: Response) {
+                println("Hasil Success")
+                val resp = response.body?.string()
+                println("responsehistory"+ resp)
+                if(resp!!.toString()!!.contains("Sukses")){
+                    runOnUiThread {
+                        Toast.makeText(this@HistoryPeminjaman, "SPL Berhasil Di Reject", Toast.LENGTH_LONG).show()
+                        finish()
+                        startActivity(getIntent())
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@HistoryPeminjaman, "SPL Gagal Di Reject", Toast.LENGTH_LONG).show()
+                        finish()
+                        startActivity(getIntent())
+                    }
+                }
             }
 
             override fun onFailure(call: Call, e: IOException) {
