@@ -20,144 +20,157 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="4dp">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <GridLayout
+            <CheckBox
+                android:id="@+id/ck_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="4dp">
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="0dp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_karyawan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/karyawan_toko"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_res_karyawan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/res_karyawan_toko"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="0dp">
-
-                    <TextView
-                        android:id="@+id/tv_tokoasal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/toko_asal"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_res_tokoasal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/res_toko_asal"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="0dp">
-
-
-                    <TextView
-                        android:id="@+id/tv_tokotujuan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/toko_tujuan"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_res_tokotujuan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/res_toko_tujuan"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="0dp">
-
-                    <TextView
-                        android:id="@+id/tv_tglmulaipinjam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/tanggal_mulai_pinjam"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_res_tglmulaipinjam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/res_tanggal_mulai_pinjam"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="0dp">
-
-                    <TextView
-                        android:id="@+id/tv_tglselesaipinjam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/tanggal_selesai_pinjam"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_res_tglselesaipinjam"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/res_tanggal_selesai_pinjam"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:padding="0dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_karyawan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/karyawan_toko"
+                            android:textStyle="bold" />
 
-            </GridLayout>
+                        <TextView
+                            android:id="@+id/tv_res_karyawan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/res_karyawan_toko"
+                            android:textStyle="bold" />
 
-        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_tokoasal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/toko_asal"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_res_tokoasal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/res_toko_asal"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+
+                        <TextView
+                            android:id="@+id/tv_tokotujuan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/toko_tujuan"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_res_tokotujuan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/res_toko_tujuan"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_tglmulaipinjam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/tanggal_mulai_pinjam"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_res_tglmulaipinjam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/res_tanggal_mulai_pinjam"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_tglselesaipinjam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/tanggal_selesai_pinjam"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_res_tglselesaipinjam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/res_tanggal_selesai_pinjam"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </GridLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

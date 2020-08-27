@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -97,6 +98,8 @@ var getInpTglSelesaiPinjambyAS: String? = ""
 class Peminjaman_AS : AppCompatActivity() {
     var button: Button? = null
     var button3 : Button? = null
+    var button0 : Button? = null
+
     var cal = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,6 +110,7 @@ class Peminjaman_AS : AppCompatActivity() {
 
         button = this.button2
         button3 = this.button1
+        button0 = this.button4
 
         button!!.text = "Select Date"
 
@@ -305,6 +309,50 @@ class Peminjaman_AS : AppCompatActivity() {
 
                 // })
 
+
+            }
+        })
+        button0!!.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View) {
+                val urlhistory = "https://hrindomaret.com/api/getpinjam/history"
+                val nik = intent.getStringExtra("nik")
+                val nikkary = intent.getStringExtra(KaryawanTokoG)
+                val attribute = intent.getStringExtra("history")
+                val param = JSONObject()
+                param.put("nik", nik)
+                param.put("nikkary", nikkary)
+                param.put("attribute", attribute)
+                val formbody = param.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                val post = Request.Builder().url(urlhistory).post(formbody).build()
+                val client = OkHttpClient()
+
+                client.newCall(post).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("Hasil Error")
+                    }
+                    override fun onResponse(call: Call, response: Response) {
+                        val body = response.body?.string()
+                        println(body)
+
+                        runOnUiThread {
+                            if(body == "[]"){
+                                Toast.makeText(
+                                    this@Peminjaman_AS,
+                                    "Belum Ada Data History",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }else{
+                                val intent = Intent(this@Peminjaman_AS, HistoryPeminjaman::class.java)
+                                intent.putExtra("nik", nik)
+                                startActivity(intent)
+                            }
+
+                        }
+
+                    }
+
+                })
 
             }
         })
