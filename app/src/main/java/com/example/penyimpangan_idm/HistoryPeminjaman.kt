@@ -25,6 +25,7 @@ class HistoryPeminjaman : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_history_peminjaman)
+        setTitle("History Peminjaman")
 
         rv_historypeminjaman.setHasFixedSize(true)
         rv_historypeminjaman.layoutManager = LinearLayoutManager(this)
@@ -78,6 +79,7 @@ class HistoryPeminjaman : AppCompatActivity() {
         val TokoTujuan = getTokoTujuanHistoryPeminjaman
         val TglMulaiPinjam = getTglMulaiDipinjamHistoryPeminjaman
         val TglSelesaiPinjam = getTglSelesaiDipinjamHistoryPeminjaman
+        val TglInput = getTglMeminjamHistoryPeminjaman
 
         val Nik = intent.getStringExtra("nik")
         val Param = JSONObject()
@@ -87,6 +89,7 @@ class HistoryPeminjaman : AppCompatActivity() {
         Param.put("tktujuan", TokoTujuan)
         Param.put("tglmulaipinjam", TglMulaiPinjam)
         Param.put("tglselesaipinjam", TglSelesaiPinjam)
+        Param.put("tglinput", TglInput)
         Param.put("nik", Nik)
 
         val formbody = Param.toString().toRequestBody()
@@ -133,6 +136,7 @@ class HistoryPeminjaman : AppCompatActivity() {
         @SerializedName("TokoAsal") val TokoAsal : String?,
         @SerializedName("TokoTujuan") val TokoTujuan : String?,
         @SerializedName("TglMulaiDipinjam") val TglMulaiDipinjam : String?,
-        @SerializedName("TglSelesaiDipinjam") val TglSelesaiDipinjam : String?
+        @SerializedName("TglSelesaiDipinjam") val TglSelesaiDipinjam : String?,
+        @SerializedName("TglMeminjam") val TglMeminjam : String?
     )
 }

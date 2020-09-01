@@ -128,6 +128,7 @@ class Peminjaman_AM : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_peminjaman_am)
+        setTitle("Peminjaman Area Manager")
 
         date = this.datebutton
         submit = this.SubmitButton
@@ -260,7 +261,10 @@ class Peminjaman_AM : AppCompatActivity(){
                                     )
                                 }
                                 else{
-                                    dialog2.setMessage("Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM")
+                                    dialog2.setMessage(
+                                        //"Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM"
+                                    "Anda sudah melakukan peminjaman sebanyak 6 kali"
+                                    )
                                 }
 
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->

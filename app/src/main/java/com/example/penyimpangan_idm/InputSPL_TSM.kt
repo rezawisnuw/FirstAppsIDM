@@ -44,6 +44,8 @@ class InputSPL_TSM : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_input_spl_tsm)
+        setTitle("Input Surat Perintah Lembur TSM")
+
         btn_jamIn.isEnabled = false
         btn_jamOut.isEnabled = false
         pb_inputsplTSM.visibility = View.GONE

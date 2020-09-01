@@ -39,6 +39,8 @@ class InputSPL : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_input_spl)
+        setTitle("Input Surat Perintah Lembur Toko")
+
         buttonJamIn.isEnabled = false
         buttonJamOut.isEnabled = false
         progressBar.visibility = View.GONE

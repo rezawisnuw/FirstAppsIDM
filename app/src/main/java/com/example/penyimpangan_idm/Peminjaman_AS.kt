@@ -105,6 +105,7 @@ class Peminjaman_AS : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_peminjaman_as)
+        setTitle("Peminjaman Area Supervisor")
 
         //mRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -215,7 +216,7 @@ class Peminjaman_AS : AppCompatActivity() {
                     override fun onResponse(call: Call, response: Response) {
                         val body = response.body?.string()
                         val respn = postList()
-                        println("indrabego"+body)
+                        println("sumitpeminjamanas"+body)
                         PostData = body
                         respn.listPeminjaman = body
                         ListPost.setPost(respn)
@@ -248,7 +249,8 @@ class Peminjaman_AS : AppCompatActivity() {
                                 }
                                 else{
                                     dialog2.setMessage(
-                                        "Sudah ada data peminjaman di toko $getInpTokoTujuanbyAS pada tanggal $getInpTglMulaiPinjambyAS hingga tanggal $getInpTglSelesaiPinjambyAS"
+                                        //"Sudah ada data peminjaman di toko $getInpTokoTujuanbyAS pada tanggal $getInpTglMulaiPinjambyAS hingga tanggal $getInpTglSelesaiPinjambyAS"
+                                        "Anda sudah melakukan peminjaman sebanyak 6 kali"
                                     )
                                 }
                                 dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->

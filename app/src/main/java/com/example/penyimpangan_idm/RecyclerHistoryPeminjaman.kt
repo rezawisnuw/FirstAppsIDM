@@ -1,11 +1,9 @@
 package com.example.penyimpangan_idm
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.layout_rv_approval_spl.view.*
 import kotlinx.android.synthetic.main.layout_rv_history_peminjaman.view.*
 
 var getDataKaryawanHistoryPeminjaman:MutableList<String?> = ArrayList()
@@ -13,6 +11,7 @@ var getTokoAsalHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getTokoTujuanHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getTglMulaiDipinjamHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getTglSelesaiDipinjamHistoryPeminjaman:MutableList<String?> = ArrayList()
+var getTglMeminjamHistoryPeminjaman:MutableList<String?> = ArrayList()
 
 var getCheckedHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getJsonHistoryPeminjaman:MutableList<String?> = ArrayList()
@@ -40,6 +39,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
         holder.view.tv_res_tokotujuan.text = res.TokoTujuan
         holder.view.tv_res_tglmulaipinjam.text = res.TglMulaiDipinjam
         holder.view.tv_res_tglselesaipinjam.text = res.TglSelesaiDipinjam
+        holder.view.tv_res_tglinput.text = res.TglMeminjam
 
         holder.view.ck_history.setOnClickListener {
             var gson = GsonBuilder().create().toJson(res)
@@ -48,6 +48,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
             var gsonTokoTujuan = GsonBuilder().create().toJson( res.TokoTujuan)
             var gsonTglMulaiDipinjam = GsonBuilder().create().toJson(res.TglMulaiDipinjam)
             var gsonTglSelesaiDipinjam = GsonBuilder().create().toJson(res.TglSelesaiDipinjam)
+            var gsonTglMeminjam = GsonBuilder().create().toJson(res.TglMeminjam)
 
             if(holder.view.ck_history.isChecked) {
                 getCheckedHistoryPeminjaman.add(res.toString())
@@ -58,6 +59,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
                 getTokoTujuanHistoryPeminjaman.add(gsonTokoTujuan)
                 getTglMulaiDipinjamHistoryPeminjaman.add(gsonTglMulaiDipinjam)
                 getTglSelesaiDipinjamHistoryPeminjaman.add(gsonTglSelesaiDipinjam)
+                getTglMeminjamHistoryPeminjaman.add(gsonTglMeminjam)
             } else {
                 if(getCheckedHistoryPeminjaman.contains(res.toString())){
                     getCheckedHistoryPeminjaman.remove(res.toString())
@@ -68,6 +70,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
                     getTokoTujuanHistoryPeminjaman.remove(gsonTokoTujuan)
                     getTglMulaiDipinjamHistoryPeminjaman.remove(gsonTglMulaiDipinjam)
                     getTglSelesaiDipinjamHistoryPeminjaman.remove(gsonTglSelesaiDipinjam)
+                    getTglMeminjamHistoryPeminjaman.remove(gsonTglMeminjam)
                 }
             }
             println("GSOOOONN "+ GsonBuilder().create().toJson(res))
