@@ -1,6 +1,7 @@
 package com.example.penyimpangan_idm
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -13,6 +14,8 @@ var getTglMulaiDipinjamHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getTglSelesaiDipinjamHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getTglMeminjamHistoryPeminjaman:MutableList<String?> = ArrayList()
 
+var ttlDataHistory: Int = 0
+
 var getCheckedHistoryPeminjaman:MutableList<String?> = ArrayList()
 var getJsonHistoryPeminjaman:MutableList<String?> = ArrayList()
 
@@ -20,6 +23,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
     //val test = listOf("qqq","www","aaa")
 
     override fun getItemCount(): Int {
+        ttlDataHistory = list.count()
         return list.count()
         //return 10
         //return test.size
@@ -40,6 +44,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
         holder.view.tv_res_tglmulaipinjam.text = res.TglMulaiDipinjam
         holder.view.tv_res_tglselesaipinjam.text = res.TglSelesaiDipinjam
         holder.view.tv_res_tglinput.text = res.TglMeminjam
+        holder.view.ll_hdtglinput.setVisibility(View.GONE);
 
         holder.view.ck_history.setOnClickListener {
             var gson = GsonBuilder().create().toJson(res)

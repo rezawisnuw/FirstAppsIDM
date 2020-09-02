@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_history_peminjaman.*
+import kotlinx.android.synthetic.main.layout_rv_history_peminjaman.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -30,11 +31,10 @@ class HistoryPeminjaman : AppCompatActivity() {
         rv_historypeminjaman.setHasFixedSize(true)
         rv_historypeminjaman.layoutManager = LinearLayoutManager(this)
 
-
         getHistory()
 
         btn_deletehistory.setOnClickListener {
-            deleteHistory()
+            cancelHistory()
         }
     }
 
@@ -54,7 +54,8 @@ class HistoryPeminjaman : AppCompatActivity() {
         client.newCall(post).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
-                println(body)
+                println("andycok"+body)
+                println("lujancoookkk"+ttlDataHistory)
 
                 val gson = GsonBuilder().create()
                 val feed: List<ModelHistoryPeminjaman> = gson.fromJson(body,Array<ModelHistoryPeminjaman>::class.java).toList()
@@ -71,28 +72,23 @@ class HistoryPeminjaman : AppCompatActivity() {
         })
     }
 
-    fun deleteHistory() {
-        val url = "https://hrindomaret.com/api/postpinjam/delete"
+    fun cancelHistory() {
+        val url = "https://hrindomaret.com/api/postpinjam/cancel"
+
+        println("getDataKaryawanHistoryPeminjaman"+getDataKaryawanHistoryPeminjaman)
+        println("getTglMeminjamHistoryPeminjaman"+getTglMeminjamHistoryPeminjaman)
 
         val DataKaryawan = getDataKaryawanHistoryPeminjaman
-        val TokoAsal = getTokoAsalHistoryPeminjaman
-        val TokoTujuan = getTokoTujuanHistoryPeminjaman
-        val TglMulaiPinjam = getTglMulaiDipinjamHistoryPeminjaman
-        val TglSelesaiPinjam = getTglSelesaiDipinjamHistoryPeminjaman
         val TglInput = getTglMeminjamHistoryPeminjaman
 
         val Nik = intent.getStringExtra("nik")
         val Param = JSONObject()
 
         Param.put("dtkaryawan", DataKaryawan)
-        Param.put("tkasal", TokoAsal)
-        Param.put("tktujuan", TokoTujuan)
-        Param.put("tglmulaipinjam", TglMulaiPinjam)
-        Param.put("tglselesaipinjam", TglSelesaiPinjam)
         Param.put("tglinput", TglInput)
         Param.put("nik", Nik)
 
-        val formbody = Param.toString().toRequestBody()
+        val formbody = Param.toString().replace("\"[","[").replace("]\"","]").replace("\\","").toRequestBody()
         val post2 = Request.Builder()
             .url(url)
             .post(formbody)
@@ -105,15 +101,16 @@ class HistoryPeminjaman : AppCompatActivity() {
                 println("Hasil Success")
                 val resp = response.body?.string()
                 println("responsehistory"+ resp)
+
                 if(resp!!.toString()!!.contains("Sukses")){
                     runOnUiThread {
-                        Toast.makeText(this@HistoryPeminjaman, "SPL Berhasil Di Reject", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@HistoryPeminjaman, "Data Berhasil Dihapus", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@HistoryPeminjaman, "SPL Gagal Di Reject", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }
