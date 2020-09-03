@@ -186,125 +186,149 @@ class Peminjaman_AM : AppCompatActivity(){
         submit!!.setOnClickListener(object : View.OnClickListener {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             override fun onClick(v: View) {
-                pb_peminjamanAM.visibility = View.VISIBLE
-                getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                )
 
-                println(KaryawanTokoG)
-                println(TokoAsalG)
-                println(TokoTujuanG)
-                println(JumlahHari)
-                println(date!!.text as String?)
-                //val kodetk_asl = intent.putExtra("kodetk_asl", TkAsl)
-                //val nik_kary =intent.putExtra("nik_kary", Nikkaryawan)
-                // val kodetk_tjn =intent.putExtra("kodetk_tjn", Tktujuan)
-                // val jml_hari = intent.putExtra("jml_hari", JmlHari)
-                // val tgl_pjm = intent.putExtra("tgl_pjm",  button!!.text as String?)
-                val url3 = "https://hrindomaret.com/api/postpinjam/submit"
-                val nik = intent.getStringExtra("nik")
-                val param3 = JSONObject()
-                param3.put("nik_kary", KaryawanTokoG)
-                param3.put("kodetk_asl", TokoAsalG)
-                param3.put("kodetk_tjn", TokoTujuanG)
-                param3.put("jml_hari", JumlahHari)
-                param3.put("tgl_pjm", date!!.text as String?)
-                param3.put("nik_inp", nik)
-                val formbody2 = param3.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-                println("param3 "+param3)
-                val post2 = Request.Builder().url(url3).post(formbody2).build()
-                val client2 = OkHttpClient()
-                client2.newCall(post2).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        println("Maaf Data Tidak Bisa Di Post")
+                val ttlhari = JumlahHari?.toInt()
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+                val convertedDate = dateFormat.parse(date!!.text as String)
+                val calendar = Calendar.getInstance()
+                calendar.time = convertedDate
+                calendar.add(Calendar.DAY_OF_YEAR, ttlhari!!)
+                val tglselesaiint = calendar.time
+                val tglselesaistr = dateFormat.format(tglselesaiint)
+                val dialogue = AlertDialog.Builder(this@Peminjaman_AM)
+                dialogue.setTitle("Konfirmasi Informasi Data Peminjaman")
+                dialogue.setMessage("Karyawan $KaryawanTokoG akan dipinjamkan ke toko $TokoTujuanG dari toko $TokoAsalG pada tanggal "+ date!!.text as String? +" hingga tanggal $tglselesaistr")
+                dialogue.setPositiveButton("Setuju", DialogInterface.OnClickListener{ dialog, which ->
+                    pb_peminjamanAM.visibility = View.VISIBLE
+                    getWindow().setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
 
-                    }
+                    println(KaryawanTokoG)
+                    println(TokoAsalG)
+                    println(TokoTujuanG)
+                    println(JumlahHari)
+                    println(date!!.text as String?)
+                    //val kodetk_asl = intent.putExtra("kodetk_asl", TkAsl)
+                    //val nik_kary =intent.putExtra("nik_kary", Nikkaryawan)
+                    // val kodetk_tjn =intent.putExtra("kodetk_tjn", Tktujuan)
+                    // val jml_hari = intent.putExtra("jml_hari", JmlHari)
+                    // val tgl_pjm = intent.putExtra("tgl_pjm",  button!!.text as String?)
+                    val url3 = "https://hrindomaret.com/api/postpinjam/submit"
+                    val nik = intent.getStringExtra("nik")
+                    val param3 = JSONObject()
+                    param3.put("nik_kary", KaryawanTokoG)
+                    param3.put("kodetk_asl", TokoAsalG)
+                    param3.put("kodetk_tjn", TokoTujuanG)
+                    param3.put("jml_hari", JumlahHari)
+                    param3.put("tgl_pjm", date!!.text as String?)
+                    param3.put("nik_inp", nik)
+                    val formbody2 = param3.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                    println("param3 "+param3)
+                    val post2 = Request.Builder().url(url3).post(formbody2).build()
+                    val client2 = OkHttpClient()
+                    client2.newCall(post2).enqueue(object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            println("Maaf Data Tidak Bisa Di Post")
 
-                    override fun onResponse(call: Call, response: Response) {
-                        val body = response.body?.string()
-                        val respn = getDataPost()
-                        println(body)
-                        DataSubmit = body
-                        respn.listPostData = body
-                        ListDataPost.setDataPost(respn)
-                        if (body!!.toString().contains("Sukses")) {
-                            runOnUiThread {
-                                pb_peminjamanAM.visibility = View.GONE
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                val dialog1 = AlertDialog.Builder(this@Peminjaman_AM)
-                                dialog1.setTitle("Submit Berhasil!")
-                                dialog1.setMessage("Data Telah Tersubmit")
-                                dialog1.setPositiveButton("OK", DialogInterface.OnClickListener{ dialog, which ->
-                                    Toast.makeText(
-                                        this@Peminjaman_AM,
-                                        "Data Tersubmit",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    finish()
-                                    //val intent = Intent(this@Peminjaman_AM, Peminjaman_AM::class.java)
-                                    startActivity(getIntent())
-                                })
-                                dialog1.show()
-                                println(body)
-                            }
+                        }
 
-                        } else if (body!!.toString().contains("Gagal")) {
-                            runOnUiThread {
-                                pb_peminjamanAM.visibility = View.GONE
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                val dialog2 = AlertDialog.Builder(this@Peminjaman_AM)
-                                dialog2.setTitle("Submit Gagal!")
-                                if(getInpTokoTujuanbyAM == ""){
-                                    dialog2.setMessage(
-                                        "Karyawan yang dipinjam sedang dalam kondisi OFF pada tanggal selanjutnya"
-                                    )
-                                }
-                                else{
-                                    dialog2.setMessage(
-                                        //"Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM"
-                                    "Anda sudah melakukan peminjaman sebanyak 6 kali"
-                                    )
+                        override fun onResponse(call: Call, response: Response) {
+                            val body = response.body?.string()
+                            val respn = getDataPost()
+                            println(body)
+                            DataSubmit = body
+                            respn.listPostData = body
+                            ListDataPost.setDataPost(respn)
+                            if (body!!.toString().contains("Sukses")) {
+                                runOnUiThread {
+                                    pb_peminjamanAM.visibility = View.GONE
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    val dialog1 = AlertDialog.Builder(this@Peminjaman_AM)
+                                    dialog1.setTitle("Submit Berhasil!")
+                                    dialog1.setMessage("Data Telah Tersubmit")
+                                    dialog1.setPositiveButton("OK", DialogInterface.OnClickListener{ dialog, which ->
+                                        Toast.makeText(
+                                            this@Peminjaman_AM,
+                                            "Data Tersubmit",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        finish()
+                                        //val intent = Intent(this@Peminjaman_AM, Peminjaman_AM::class.java)
+                                        startActivity(getIntent())
+                                    })
+                                    dialog1.show()
+                                    println(body)
                                 }
 
-                                dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
-                                    Toast.makeText(
-                                        this@Peminjaman_AM,
-                                        "Gagal Tersubmit",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    finish()
-                                    //val intent = Intent(this@Peminjaman_AM, Peminjaman_AM::class.java)
-                                    startActivity(getIntent())
-                                })
-                                dialog2.show()
-                                println(body)
-                            }
-                        } else {
-                            runOnUiThread {
-                                pb_peminjamanAM.visibility = View.GONE
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                val dialog3 = AlertDialog.Builder(this@Peminjaman_AM)
-                                dialog3.setTitle("Submit Gagal!")
-                                dialog3.setMessage("Data Tidak Lengkap")
-                                dialog3.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
-                                    Toast.makeText(
-                                        this@Peminjaman_AM,
-                                        "Gagal Tersubmit",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                            } else if (body!!.toString().contains("Gagal")) {
+                                runOnUiThread {
+                                    pb_peminjamanAM.visibility = View.GONE
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    val dialog2 = AlertDialog.Builder(this@Peminjaman_AM)
+                                    dialog2.setTitle("Submit Gagal!")
+                                    if(getInpTokoTujuanbyAM == ""){
+                                        dialog2.setMessage(
+                                            "Karyawan yang dipinjam sedang dalam kondisi OFF pada tanggal selanjutnya"
+                                        )
+                                    }
+                                    else{
+                                        dialog2.setMessage(
+                                            //"Sudah ada data peminjaman di toko $getInpTokoTujuanbyAM pada tanggal $getInpTglMulaiPinjambyAM sampai tanggal $getInpTglSelesaiPinjambyAM"
+                                            "Anda sudah melakukan peminjaman sebanyak 6 kali"
+                                        )
+                                    }
+
+                                    dialog2.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
+                                        Toast.makeText(
+                                            this@Peminjaman_AM,
+                                            "Gagal Tersubmit",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        finish()
+                                        //val intent = Intent(this@Peminjaman_AM, Peminjaman_AM::class.java)
+                                        startActivity(getIntent())
+                                    })
+                                    dialog2.show()
+                                    println(body)
+                                }
+                            } else {
+                                runOnUiThread {
+                                    pb_peminjamanAM.visibility = View.GONE
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    val dialog3 = AlertDialog.Builder(this@Peminjaman_AM)
+                                    dialog3.setTitle("Submit Gagal!")
+                                    dialog3.setMessage("Data Tidak Lengkap")
+                                    dialog3.setNegativeButton("Kembali", DialogInterface.OnClickListener { dialog, which ->
+                                        Toast.makeText(
+                                            this@Peminjaman_AM,
+                                            "Gagal Tersubmit",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
 //                                    finish()
 //                                    //val intent = Intent(this@Peminjaman_AM, Peminjaman_AM::class.java)
 //                                    startActivity(getIntent())
-                                })
-                                dialog3.show()
-                                println(body)
+                                    })
+                                    dialog3.show()
+                                    println(body)
+                                }
                             }
                         }
-                    }
 
 
+                    })
                 })
+                dialogue.setNegativeButton("Kembali", DialogInterface.OnClickListener{ dialog, which ->
+                    Toast.makeText(
+                        this@Peminjaman_AM,
+                        "Silahkan ulangi proses kembali",
+                        Toast.LENGTH_SHORT).show()
+                    finish()
+                    startActivity(getIntent())
+                })
+                dialogue.show()
+
             }
         })
 
