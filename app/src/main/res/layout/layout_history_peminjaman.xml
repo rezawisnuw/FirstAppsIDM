@@ -9,6 +9,7 @@
     tools:context=".HistoryPeminjaman">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,23 +25,28 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_historypeminjaman"
                 android:layout_width="match_parent"
-                android:layout_height="330dp"
+                android:layout_height="500dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="8dp"
+                android:background="#E1DFDF">
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <Button
-                android:id="@+id/btn_deletehistory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="70dp"
-                android:text="Cancel History"
-                tools:visibility="visible" />
-
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_deletehistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="70dp"
+        android:text="Cancel History"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
