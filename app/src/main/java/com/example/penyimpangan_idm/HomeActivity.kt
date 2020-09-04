@@ -173,6 +173,7 @@ class HomeActivity : AppCompatActivity() {
 
         val cred = JSONObject()
         cred.put("nik",nik)
+        //cred.put("nik","2013212174")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

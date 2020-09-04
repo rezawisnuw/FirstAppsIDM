@@ -50,6 +50,7 @@ class InputSPL : AppCompatActivity() {
 
         val nik = intent.getStringExtra("nik")
         getKaryawanToko(nik)
+        //getKaryawanToko("2013212174")
         SpinnerShift()
 
         textview_date = this.textDate
@@ -101,8 +102,8 @@ class InputSPL : AppCompatActivity() {
                         JamIn!!.text = SimpleDateFormat("HH:mm").format(compareH.time)
                         if(JamIn.text !== "Jam In"){
                             buttonJamOut.isEnabled = true
-                            buttonJamIn.isEnabled = false
-                            btnCalendar.isEnabled = false
+                            buttonJamIn.isEnabled = true
+                            btnCalendar.isEnabled = true
                         }
                         jamInDiffBtm = compareH.time
                         compareH.add(Calendar.HOUR_OF_DAY,8)
@@ -113,8 +114,8 @@ class InputSPL : AppCompatActivity() {
                         JamIn!!.text = SimpleDateFormat("HH:mm").format(cal.time)
                         if(JamIn.text !== "Jam In"){
                             buttonJamOut.isEnabled = true
-                            buttonJamIn.isEnabled = false
-                            btnCalendar.isEnabled = false
+                            buttonJamIn.isEnabled = true
+                            btnCalendar.isEnabled = true
                         }
                         jamInDiffBtm = cal.time
                         cal.add(Calendar.HOUR_OF_DAY,8)
@@ -126,8 +127,8 @@ class InputSPL : AppCompatActivity() {
                     JamIn!!.text = SimpleDateFormat("HH:mm").format(cal.time)
                     if(JamIn.text !== "Jam In"){
                         buttonJamOut.isEnabled = true
-                        buttonJamIn.isEnabled = false
-                        btnCalendar.isEnabled = false
+                        buttonJamIn.isEnabled = true
+                        btnCalendar.isEnabled = true
                     }
                 }
 
@@ -310,6 +311,7 @@ class InputSPL : AppCompatActivity() {
         val nik = intent.getStringExtra("nik")
         val cred = JSONObject()
         cred.put("nik",nik)
+        //cred.put("nik","2013212174")
         cred.put("jammasuk", JamIn.text)
         cred.put("jamkeluar", JamOut.text)
         cred.put("tgllembur", textDate.text)
