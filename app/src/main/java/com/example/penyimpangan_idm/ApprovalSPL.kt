@@ -278,6 +278,12 @@ class ApprovalSPL :  AppCompatActivity()  {
                 //val code = string?.substring(0, string.indexOf(" - "))
                 //println("testdata" + code)
 
+                pb_listspl.visibility = View.VISIBLE
+                getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                );
+
                 getListSPL()
 
             }

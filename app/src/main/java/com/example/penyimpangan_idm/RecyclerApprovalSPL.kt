@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.layout_approval_spl.view.*
 import kotlinx.android.synthetic.main.layout_rv_approval_spl.view.*
 
 var getNoDtlSPL:MutableList<String?> = ArrayList()
@@ -87,6 +88,8 @@ class RecyclerApprovalSPL(val feed: ApprovalSPL.Feed): RecyclerView.Adapter<Cust
 //            println("dataFeed "+dataFeed)
             println("ApprovalCode " + feed.NoDtlSPL.toString())
             if(holder.view.ck_spl.isChecked){
+                holder.view.btn_approve.isEnabled = true
+
                 getChecked.add(feed.toString())
                 getJson.add(gson)
 
@@ -111,6 +114,8 @@ class RecyclerApprovalSPL(val feed: ApprovalSPL.Feed): RecyclerView.Adapter<Cust
 //                getKeterangan.add(feed.Keterangan)
 
             } else {
+                holder.view.btn_approve.isEnabled = false
+
                 if(getChecked.contains(feed.toString())){
                     getChecked.remove(feed.toString())
                     getJson.remove(gson)

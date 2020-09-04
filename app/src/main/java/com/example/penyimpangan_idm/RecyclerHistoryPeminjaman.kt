@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.layout_approval_spl.view.*
+import kotlinx.android.synthetic.main.layout_history_peminjaman.view.*
 import kotlinx.android.synthetic.main.layout_rv_history_peminjaman.view.*
 
 var getDataKaryawanHistoryPeminjaman:MutableList<String?> = ArrayList()
@@ -56,6 +58,8 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
             var gsonTglMeminjam = GsonBuilder().create().toJson(res.TglMeminjam)
 
             if(holder.view.ck_history.isChecked) {
+                holder.view.btn_deletehistory.isEnabled = true
+
                 getCheckedHistoryPeminjaman.add(res.toString())
                 getJsonHistoryPeminjaman.add(gson)
 
@@ -66,6 +70,8 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
                 getTglSelesaiDipinjamHistoryPeminjaman.add(gsonTglSelesaiDipinjam)
                 getTglMeminjamHistoryPeminjaman.add(gsonTglMeminjam)
             } else {
+                holder.view.btn_deletehistory.isEnabled = false
+
                 if(getCheckedHistoryPeminjaman.contains(res.toString())){
                     getCheckedHistoryPeminjaman.remove(res.toString())
                     getJsonHistoryPeminjaman.remove(gson)
