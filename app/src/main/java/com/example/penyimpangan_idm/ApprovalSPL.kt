@@ -3,14 +3,18 @@ package com.example.penyimpangan_idm
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.synthetic.main.layout_rv_approval_spl.*
 import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_approval_spl.tv_datarelasi
+import kotlinx.android.synthetic.main.layout_rv_approval_spl.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -362,12 +366,22 @@ class ApprovalSPL :  AppCompatActivity()  {
                 //val databody = gson.toJson(Jarray)
                 //val listspl: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
                 val listspl = gson.fromJson(body,Feed::class.java)
-                //println("asdasd " + listspl)
+                println("bodygson " + listspl.data)
 
                 runOnUiThread {
-                    pb_listspl.visibility = View.GONE
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    rv_approvalspl.adapter = RecyclerApprovalSPL(listspl)
+                    if(listspl.data.toString() == "[]"){
+                        Toast.makeText(
+                            this@ApprovalSPL,
+                            "Pilihan yang terkait tidak ada data approval SPL",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }else{
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        rv_approvalspl.adapter = RecyclerApprovalSPL(listspl)
+                    }
                 }
 
             }
