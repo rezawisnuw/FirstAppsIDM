@@ -61,14 +61,25 @@ class ApprovalSPL :  AppCompatActivity()  {
         getApprovalList()
 
         btn_approve.setOnClickListener{
-            approveSPL()
-            println("getChecked "+getChecked)
-            println("getJson "+getJson)
-            println("getNoSPL "+ getNoDtlSPL)
+            if(ck_spl.isChecked){
+                approveSPL()
+                println("getChecked "+getChecked)
+                println("getJson "+getJson)
+                println("getNoSPL "+ getNoDtlSPL)
+            }else{
+                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
+            }
+
+
         }
 
         btn_reject.setOnClickListener {
-            rejectSPL()
+            if(ck_spl.isChecked){
+                rejectSPL()
+            }else{
+                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
+            }
+
         }
 
     }

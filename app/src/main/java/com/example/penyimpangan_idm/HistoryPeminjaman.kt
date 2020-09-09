@@ -34,7 +34,12 @@ class HistoryPeminjaman : AppCompatActivity() {
         getHistory()
 
         btn_deletehistory.setOnClickListener {
-            cancelHistory()
+            if(ck_history.isChecked){
+                cancelHistory()
+            }else{
+                Toast.makeText(this@HistoryPeminjaman, "Pilih karyawan terlebih dahulu", Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 
