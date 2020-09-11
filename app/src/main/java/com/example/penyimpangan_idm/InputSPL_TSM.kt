@@ -106,8 +106,8 @@ class InputSPL_TSM : AppCompatActivity() {
                         tv_jamIn!!.text = SimpleDateFormat("HH:mm").format(compareH.time)
                         if(tv_jamIn.text !== "Jam In"){
                             btn_jamOut.isEnabled = true
-                            btn_jamIn.isEnabled = false
-                            btn_calendar.isEnabled = false
+                            btn_jamIn.isEnabled = true
+                            btn_calendar.isEnabled = true
                         }
                         jamInDiffBtm = compareH.time
                         compareH.add(Calendar.HOUR_OF_DAY,8)
@@ -118,8 +118,8 @@ class InputSPL_TSM : AppCompatActivity() {
                         tv_jamIn!!.text = SimpleDateFormat("HH:mm").format(cal.time)
                         if(tv_jamIn.text !== "Jam In"){
                             btn_jamOut.isEnabled = true
-                            btn_jamIn.isEnabled = false
-                            btn_calendar.isEnabled = false
+                            btn_jamIn.isEnabled = true
+                            btn_calendar.isEnabled = true
                         }
                         jamInDiffBtm = cal.time
                         cal.add(Calendar.HOUR_OF_DAY,8)
@@ -131,8 +131,8 @@ class InputSPL_TSM : AppCompatActivity() {
                     tv_jamIn!!.text = SimpleDateFormat("HH:mm").format(cal.time)
                     if(tv_jamIn.text !== "Jam In"){
                         btn_jamOut.isEnabled = true
-                        btn_jamIn.isEnabled = false
-                        btn_calendar.isEnabled = false
+                        btn_jamIn.isEnabled = true
+                        btn_calendar.isEnabled = true
                     }
                 }
 
@@ -295,6 +295,7 @@ class InputSPL_TSM : AppCompatActivity() {
         val param = JSONObject()
         param.put("nikatasan",  NikAtasan)
         param.put("kategori",  Kategori)
+        param.put("tgllembur",  tv_jamOut.text)
 
         val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
