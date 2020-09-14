@@ -297,9 +297,12 @@ class InputSPL_TSM : AppCompatActivity() {
     fun getKaryawanCabang() {
         val url = "https://hrindomaret.com/api/getdata/listkaryawancabang"
         val param = JSONObject()
-        param.put("nikatasan",  NikAtasan)
-        param.put("kategori",  Kategori)
-        param.put("tgllembur",  tv_calendar.text)
+//        param.put("nikatasan",  NikAtasan)
+//        param.put("kategori",  Kategori)
+//        param.put("tgllembur",  tv_calendar.text)
+        param.put("nikatasan",  "1997000202")
+        param.put("kategori",  "supervisor")
+        param.put("tgllembur",  "09/06/2020")
 
         val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -327,9 +330,9 @@ class InputSPL_TSM : AppCompatActivity() {
 
                 val gson = GsonBuilder().create()
                 //val databody = gson.toJson(Jarray)
-                //val listspl: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
-                val listkarycbg_spltsm = gson.fromJson(body, InputSPL_TSM.Feed::class.java)
-                //println("asdasd " + listspl)
+                //val listkarycbg_spltsm: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
+                val listkarycbg_spltsm = gson.fromJson(body, Feed::class.java)
+                //println("listkarycbg_spltsm " + listkarycbg_spltsm)
 
                 runOnUiThread {
                     pb_inputsplTSM.visibility = View.GONE

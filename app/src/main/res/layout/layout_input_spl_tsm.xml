@@ -65,6 +65,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
+            android:background="#E1DFDF"
             app:layout_constraintBottom_toTopOf="@+id/btn_calendar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
