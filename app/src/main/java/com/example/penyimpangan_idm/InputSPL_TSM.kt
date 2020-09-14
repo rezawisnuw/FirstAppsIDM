@@ -193,6 +193,7 @@ class InputSPL_TSM : AppCompatActivity() {
         textview_date!!.text = sdf.format(cal.time)
         if(tv_calendar.text !== "--/--/----"){
             btn_jamIn.isEnabled = true
+            getKaryawanCabang()
         }
         DateInput = sdf.format(cal.time)
     }
@@ -283,8 +284,6 @@ class InputSPL_TSM : AppCompatActivity() {
 
                 NikAtasan = karyawanselected
                 Kategori = kategoriselected
-
-                getKaryawanCabang()
             }
         }
 
@@ -295,7 +294,7 @@ class InputSPL_TSM : AppCompatActivity() {
         val param = JSONObject()
         param.put("nikatasan",  NikAtasan)
         param.put("kategori",  Kategori)
-        param.put("tgllembur",  tv_jamOut.text)
+        param.put("tgllembur",  tv_calendar.text)
 
         val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -310,7 +309,7 @@ class InputSPL_TSM : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
 
                 val body = response.body?.string()
-                println("body"+body)
+                println("listkaryawancabang"+body)
 //                val Jobject = JSONObject(body)
 //                val Jarray: JSONArray = Jobject.getJSONArray("data")
 //
