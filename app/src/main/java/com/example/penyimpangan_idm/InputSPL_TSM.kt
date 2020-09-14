@@ -9,7 +9,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_input_spl_tsm.*
 import okhttp3.*
@@ -45,6 +47,9 @@ class InputSPL_TSM : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_input_spl_tsm)
         setTitle("Input Surat Perintah Lembur TSM")
+
+        rv_inputspltsm.setHasFixedSize(true)
+        rv_inputspltsm.layoutManager = LinearLayoutManager(this)
 
         btn_jamIn.isEnabled = false
         btn_jamOut.isEnabled = false
@@ -323,13 +328,13 @@ class InputSPL_TSM : AppCompatActivity() {
                 val gson = GsonBuilder().create()
                 //val databody = gson.toJson(Jarray)
                 //val listspl: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
-                val listspl = gson.fromJson(body, ApprovalSPL.Feed::class.java)
+                val listkarycbg_spltsm = gson.fromJson(body, InputSPL_TSM.Feed::class.java)
                 //println("asdasd " + listspl)
 
                 runOnUiThread {
                     pb_inputsplTSM.visibility = View.GONE
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    //rv_approvalspl.adapter = RecyclerApprovalSPL(listspl)
+                    rv_inputspltsm.adapter = RecyclerInputSPL_TSM(listkarycbg_spltsm)
                 }
 
             }
@@ -394,4 +399,15 @@ class InputSPL_TSM : AppCompatActivity() {
             }
         })
     }
+
+    data class Feed(
+        @SerializedName("data") val data: List<ModelListKaryawanCabang>
+    )
+
+    data class ModelListKaryawanCabang(
+        @SerializedName("KaryawanCabang") val KaryawanCabang : String?,
+        @SerializedName("SPLKe") val SPLKe : String?,
+        @SerializedName("JamKerja") val JamKerja : String?,
+        @SerializedName("TglLembur") val TglLembur : String?
+    )
 }
