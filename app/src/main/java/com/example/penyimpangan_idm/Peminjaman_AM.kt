@@ -16,6 +16,7 @@ import com.example.penyimpangan_idm.R
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.layout_peminjaman_am.*
 import kotlinx.android.synthetic.main.layout_history_peminjaman.*
+import kotlinx.android.synthetic.main.layout_peminjaman_as.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
@@ -176,11 +177,7 @@ class Peminjaman_AM : AppCompatActivity(){
 
 //                dialog.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dialog.show()
-                pb_peminjamanAM.visibility = View.VISIBLE
-                getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                );
+//
             }
         })
         submit!!.setOnClickListener(object : View.OnClickListener {
@@ -890,6 +887,17 @@ class Peminjaman_AM : AppCompatActivity(){
         })
     }
     fun TokoTujuan()= runBlocking{
+        if(date!!.text as String? != "Select Date"){
+            pb_peminjamanAM.visibility = View.VISIBLE
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            );
+        }else{
+            pb_peminjamanAM.visibility = View.GONE
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+
         val url = "https://hrindomaret.com/api/getpinjam/tokotujuan"
         //val kodetk_asl1 = intent.putExtra("kodetoko","kosong")
         val param = JSONObject()

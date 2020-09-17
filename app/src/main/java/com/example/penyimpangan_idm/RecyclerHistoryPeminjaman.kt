@@ -58,7 +58,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
             var gsonTglMeminjam = GsonBuilder().create().toJson(res.TglMeminjam)
 
             if(holder.view.ck_history.isChecked) {
-                holder.view.btn_deletehistory.isEnabled = true
+//                holder.view.btn_deletehistory.isEnabled = true
 
                 getCheckedHistoryPeminjaman.add(res.toString())
                 getJsonHistoryPeminjaman.add(gson)
@@ -70,7 +70,7 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
                 getTglSelesaiDipinjamHistoryPeminjaman.add(gsonTglSelesaiDipinjam)
                 getTglMeminjamHistoryPeminjaman.add(gsonTglMeminjam)
             } else {
-                holder.view.btn_deletehistory.isEnabled = false
+//                holder.view.btn_deletehistory.isEnabled = false
 
                 if(getCheckedHistoryPeminjaman.contains(res.toString())){
                     getCheckedHistoryPeminjaman.remove(res.toString())

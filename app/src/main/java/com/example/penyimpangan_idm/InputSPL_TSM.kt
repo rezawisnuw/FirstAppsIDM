@@ -56,7 +56,7 @@ class InputSPL_TSM : AppCompatActivity() {
         pb_inputsplTSM.visibility = View.GONE
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        et_keteranganlembur.hint = "Keterangan Lembur"
+        //et_keteranganlembur.hint = "Keterangan Lembur"
 
         val nik = intent.getStringExtra("nik")
         getAtasanCabang(nik)
@@ -311,16 +311,16 @@ class InputSPL_TSM : AppCompatActivity() {
 
         val url = "https://hrindomaret.com/api/getdata/listkaryawancabang"
         val param = JSONObject()
-        param.put("nikatasan",  NikAtasan)
-        param.put("kategori",  Kategori)
-        param.put("tgllembur",  tv_calendar.text)
-        param.put("jammasuk",  tv_jamIn.text)
-        param.put("jamkeluar",  tv_jamOut.text)
-//        param.put("nikatasan",  "1997000202")
-//        param.put("kategori",  "supervisor")
-//        param.put("tgllembur",  "09/06/2020")
-//        param.put("jammasuk", "15:00")
-//        param.put("jamkeluar", "20:00")
+//        param.put("nikatasan",  NikAtasan)
+//        param.put("kategori",  Kategori)
+//        param.put("tgllembur",  tv_calendar.text)
+//        param.put("jammasuk",  tv_jamIn.text)
+//        param.put("jamkeluar",  tv_jamOut.text)
+        param.put("nikatasan",  "1997000202")
+        param.put("kategori",  "supervisor")
+        param.put("tgllembur",  "06/09/2020")
+        param.put("jammasuk", "15:00")
+        param.put("jamkeluar", "20:00")
 
         val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -382,7 +382,7 @@ class InputSPL_TSM : AppCompatActivity() {
         cred.put("tgllembur", tv_calendar.text)
         cred.put("dtkaryawan", selected)
         cred.put("shift", shift)
-        cred.put("kettugas", et_keteranganlembur.text)
+        //cred.put("kettugas", et_keteranganlembur.text)
 
         val formbody = cred.toString().replace("\\","").toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

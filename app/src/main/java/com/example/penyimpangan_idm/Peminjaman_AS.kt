@@ -159,11 +159,8 @@ class Peminjaman_AS : AppCompatActivity() {
 
 //                dialog.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dialog.show()
-                pb_peminjamanAS.visibility = View.VISIBLE
-                getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                );
+                println("button!!.text"+button!!.text as String?)
+
 
                 //dialog.datePicker.maxDate =
                 //Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH).toLong()
@@ -702,6 +699,16 @@ class Peminjaman_AS : AppCompatActivity() {
     }
 
     fun fetchJson() = runBlocking {
+        if(button!!.text as String? != "Select Date"){
+            pb_peminjamanAS.visibility = View.VISIBLE
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            );
+        }else{
+            pb_peminjamanAS.visibility = View.GONE
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
 
         //val client = OkHttpClient()
         val url = "https://hrindomaret.com/api/getpinjam/tokoasal"
