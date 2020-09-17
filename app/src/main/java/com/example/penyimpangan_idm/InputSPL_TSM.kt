@@ -56,7 +56,7 @@ class InputSPL_TSM : AppCompatActivity() {
         pb_inputsplTSM.visibility = View.GONE
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        et_keteranganlembur.hint = "Isi Tugas"
+        et_keteranganlembur.hint = "Keterangan Lembur"
 
         val nik = intent.getStringExtra("nik")
         getAtasanCabang(nik)
@@ -155,6 +155,11 @@ class InputSPL_TSM : AppCompatActivity() {
                 cal.set(Calendar.HOUR_OF_DAY, hour)
                 cal.set(Calendar.MINUTE, minute)
                 tv_jamOut!!.text = SimpleDateFormat("HH:mm").format(cal.time)
+
+                if(tv_jamOut.text !== "Jam Out"){
+                    getKaryawanCabang()
+                }
+
 //                if()
 //                println("JAM " + jamInDiff)
 //                cal.setTime(jamInDiff)
@@ -182,12 +187,15 @@ class InputSPL_TSM : AppCompatActivity() {
 //                        JamOut!!.text = format
 //                    }
 //                }
+
+
             }
             TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+
         }
 
         btn_inputsplTSM.setOnClickListener {
-            SubmitSPL()
+            SubmitSPLCabang()
         }
 
     }
@@ -198,9 +206,9 @@ class InputSPL_TSM : AppCompatActivity() {
         textview_date!!.text = sdf.format(cal.time)
         if(tv_calendar.text !== "--/--/----"){
             btn_jamIn.isEnabled = true
-            getKaryawanCabang()
         }
         DateInput = sdf.format(cal.time)
+
     }
 
     fun getAtasanCabang(nik:String){
@@ -294,15 +302,25 @@ class InputSPL_TSM : AppCompatActivity() {
 
     }
 
-    fun getKaryawanCabang() {
+    fun getKaryawanCabang(){
+        pb_inputsplTSM.visibility = View.VISIBLE
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        );
+
         val url = "https://hrindomaret.com/api/getdata/listkaryawancabang"
         val param = JSONObject()
-//        param.put("nikatasan",  NikAtasan)
-//        param.put("kategori",  Kategori)
-//        param.put("tgllembur",  tv_calendar.text)
-        param.put("nikatasan",  "1997000202")
-        param.put("kategori",  "supervisor")
-        param.put("tgllembur",  "09/06/2020")
+        param.put("nikatasan",  NikAtasan)
+        param.put("kategori",  Kategori)
+        param.put("tgllembur",  tv_calendar.text)
+        param.put("jammasuk",  tv_jamIn.text)
+        param.put("jamkeluar",  tv_jamOut.text)
+//        param.put("nikatasan",  "1997000202")
+//        param.put("kategori",  "supervisor")
+//        param.put("tgllembur",  "09/06/2020")
+//        param.put("jammasuk", "15:00")
+//        param.put("jamkeluar", "20:00")
 
         val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -318,26 +336,25 @@ class InputSPL_TSM : AppCompatActivity() {
 
                 val body = response.body?.string()
                 println("listkaryawancabang"+body)
-//                val Jobject = JSONObject(body)
-//                val Jarray: JSONArray = Jobject.getJSONArray("data")
-//
-//                println("Jarray"+Jarray)
-//
-//                for (i in 0 until Jarray.length()) {
-//                    val datalist = Jarray.getJSONObject(i)
-//                    println("datalist"+datalist)
-//                }
 
                 val gson = GsonBuilder().create()
-                //val databody = gson.toJson(Jarray)
-                //val listkarycbg_spltsm: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
                 val listkarycbg_spltsm = gson.fromJson(body, Feed::class.java)
-                //println("listkarycbg_spltsm " + listkarycbg_spltsm)
 
                 runOnUiThread {
-                    pb_inputsplTSM.visibility = View.GONE
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    rv_inputspltsm.adapter = RecyclerInputSPL_TSM(listkarycbg_spltsm)
+                    if(listkarycbg_spltsm.data.toString() == "[]"){
+                        Toast.makeText(
+                            this@InputSPL_TSM,
+                            "Pilihan Karyawan yang terkait data tersebut tidak ada, Silahkan ulangi pilihan anda kembali",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        pb_inputsplTSM.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }else{
+                        pb_inputsplTSM.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        rv_inputspltsm.adapter = RecyclerInputSPL_TSM(listkarycbg_spltsm)
+                    }
+
                 }
 
             }
@@ -349,15 +366,14 @@ class InputSPL_TSM : AppCompatActivity() {
 
     }
 
-    fun SubmitSPL(){
-        btn_inputsplTSM.isEnabled = false
+    fun SubmitSPLCabang(){
         pb_inputsplTSM.visibility = View.VISIBLE
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         );
 
-        val url = "https://hrindomaret.com/api/postdata/newspl"
+        val url = "https://hrindomaret.com/api/postdata/newsplcabang"
         val nik = intent.getStringExtra("nik")
         val cred = JSONObject()
         cred.put("nik",nik)
@@ -392,7 +408,6 @@ class InputSPL_TSM : AppCompatActivity() {
                 runOnUiThread {
                     pb_inputsplTSM.visibility = View.GONE
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    btn_inputsplTSM.isEnabled = true
                     Toast.makeText(this@InputSPL_TSM, "SPL Berhasil Di Input", Toast.LENGTH_LONG).show()
                     finish()
                     startActivity(getIntent())

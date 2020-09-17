@@ -307,7 +307,7 @@ class InputSPL : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         );
 
-        val url = "https://hrindomaret.com/api/postdata/newspl"
+        val url = "https://hrindomaret.com/api/postdata/newspltoko"
         val nik = intent.getStringExtra("nik")
         val cred = JSONObject()
         cred.put("nik",nik)

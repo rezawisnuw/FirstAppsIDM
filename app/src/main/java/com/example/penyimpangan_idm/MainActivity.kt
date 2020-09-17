@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity() {
             client.newCall(post2).enqueue(object: Callback{
                 override fun onResponse(call: Call, response: Response) {
                     val resp = response.body?.string()
-                    println(resp)
+                    println("resp"+resp)
                     if(JSONObject(resp).has("error")){
                         Handler(Looper.getMainLooper()).post(Runnable {
                             Toast.makeText(

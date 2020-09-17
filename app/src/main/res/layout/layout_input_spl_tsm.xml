@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="116dp"
             android:text="Karyawan :"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_calendar" />
@@ -92,8 +92,8 @@
             android:id="@+id/tv_jamIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:clickable="false"
             android:text="Jam In"
             android:textSize="24sp"
@@ -146,7 +146,7 @@
             android:id="@+id/et_keteranganlembur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="Keterangan Lembur"
@@ -154,7 +154,7 @@
             android:maxLines="3"
             android:minLines="1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.462"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_inputspltsm" />
 
@@ -163,20 +163,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
             android:text="Jam In"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_inputspltsm" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_calendar" />
 
         <Button
             android:id="@+id/btn_jamOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:layout_marginEnd="20dp"
             android:text="Jam Out"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_inputspltsm" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_calendar" />
 
         <ProgressBar
             android:id="@+id/pb_inputsplTSM"
