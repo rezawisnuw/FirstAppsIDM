@@ -62,6 +62,8 @@ class HomeActivity : AppCompatActivity() {
                         "Anda bukan AS / AM",
                         Toast.LENGTH_LONG
                     ).show()
+
+                    progressBar!!.visibility = View.GONE
                 }
             }
 //            if(JSONObject(ASAM).has("AS")){
@@ -96,41 +98,41 @@ class HomeActivity : AppCompatActivity() {
         }
 
         imageButton4.setOnClickListener{
-//            if(JabatanToko!!.contains("N5")
-//                || JabatanToko!!.contains("N5K")
-//                || JabatanToko!!.contains("N6")
-//                || JabatanToko!!.contains("N6K")
-//                || JabatanToko!!.contains("N7")
-//                || JabatanToko!!.contains("N7K")
-//                || JabatanToko!!.contains("HA")
-//                || JabatanToko!!.contains("HAK")
-//                || JabatanToko!!.contains("HF")
-//                || JabatanToko!!.contains("HFK")
-//                || JabatanToko!!.contains("NH")
-//                || JabatanToko!!.contains("NHK")
-//            ){
-//                val intent = Intent(this@HomeActivity, InputSPL::class.java)
-//                intent.putExtra("nik",nik)
-//                startActivity(intent)
-//
-//            } else{
+            if(JabatanToko!!.contains("N5")
+                || JabatanToko!!.contains("N5K")
+                || JabatanToko!!.contains("N6")
+                || JabatanToko!!.contains("N6K")
+                || JabatanToko!!.contains("N7")
+                || JabatanToko!!.contains("N7K")
+                || JabatanToko!!.contains("HA")
+                || JabatanToko!!.contains("HAK")
+                || JabatanToko!!.contains("HF")
+                || JabatanToko!!.contains("HFK")
+                || JabatanToko!!.contains("NH")
+                || JabatanToko!!.contains("NHK")
+            ){
+                val intent = Intent(this@HomeActivity, InputSPL::class.java)
+                intent.putExtra("nik",nik)
+                startActivity(intent)
 
-                if(JabatanCabang!!.contains("manager_cabang")
-                    || JabatanCabang!!.contains("supervisor")
-                    || JabatanCabang!!.contains("hrapproval")
-                ){
-                    val intent = Intent(this@HomeActivity, InputSPL_TSM::class.java)
-                    intent.putExtra("nik",nik)
-                    startActivity(intent)
+            } else{
 
-                }
-//                else{
-//                    val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
+//                if(JabatanCabang!!.contains("manager_cabang")
+//                    || JabatanCabang!!.contains("supervisor")
+//                    || JabatanCabang!!.contains("hrapproval")
+//                ){
+//                    val intent = Intent(this@HomeActivity, InputSPL_TSM::class.java)
 //                    intent.putExtra("nik",nik)
 //                    startActivity(intent)
+//
+//                }
+//                else{
+                    val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
+                    intent.putExtra("nik",nik)
+                    startActivity(intent)
 //                }
 
-//            }
+            }
         }
     }
 

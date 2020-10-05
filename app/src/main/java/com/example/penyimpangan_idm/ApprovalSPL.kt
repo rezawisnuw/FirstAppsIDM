@@ -222,7 +222,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject, Cek Data Presensi", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }
