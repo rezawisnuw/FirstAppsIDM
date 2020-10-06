@@ -1,5 +1,7 @@
 package com.example.penyimpangan_idm
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -115,23 +117,39 @@ class HomeActivity : AppCompatActivity() {
                 intent.putExtra("nik",nik)
                 startActivity(intent)
 
-            } else{
-
-//                if(JabatanCabang!!.contains("manager_cabang")
-//                    || JabatanCabang!!.contains("supervisor")
-//                    || JabatanCabang!!.contains("hrapproval")
-//                ){
-//                    val intent = Intent(this@HomeActivity, InputSPL_TSM::class.java)
-//                    intent.putExtra("nik",nik)
-//                    startActivity(intent)
-//
-//                }
-//                else{
+            }
+            else if(ASAM!!.contains("AS") || ASAM!!.contains("AM")){
+                val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
+                intent.putExtra("nik",nik)
+                startActivity(intent)
+            }
+            else if(JabatanCabang!!.contains("manager_cabang")
+                || JabatanCabang!!.contains("supervisor")
+                || JabatanCabang!!.contains("hrapproval")
+            ){
+                val dialogmenu = AlertDialog.Builder(this@HomeActivity)
+                dialogmenu.setTitle("Pilih Menu")
+                dialogmenu.setMessage("Silahkan Pilih Menu Selanjtnya, Input SPL atau Approval SPL")
+                dialogmenu.setPositiveButton("Input SPL", DialogInterface.OnClickListener{ dialog, which ->
+                    val intent = Intent(this@HomeActivity, InputSPL_TSM::class.java)
+                    intent.putExtra("nik",nik)
+                    startActivity(intent)
+                })
+                dialogmenu.setNegativeButton("Approval SPL", DialogInterface.OnClickListener{ dialog, which ->
                     val intent = Intent(this@HomeActivity, ApprovalSPL::class.java)
                     intent.putExtra("nik",nik)
                     startActivity(intent)
-//                }
+                })
 
+            }
+            else {
+                runOnUiThread {
+                    Toast.makeText(
+                        baseContext,
+                        "Anda Tidak Punya Akses",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }
@@ -175,7 +193,7 @@ class HomeActivity : AppCompatActivity() {
 
         val cred = JSONObject()
         cred.put("nik",nik)
-        //cred.put("nik","2013212174")
+        //cred.put("nik","2015020104")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -208,7 +226,7 @@ class HomeActivity : AppCompatActivity() {
         val url = "https://hrindomaret.com/api/getdata/jabatancabangspl"
 
         val cred = JSONObject()
-        cred.put("nik","1997000202")
+        //cred.put("nik","1997000202")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

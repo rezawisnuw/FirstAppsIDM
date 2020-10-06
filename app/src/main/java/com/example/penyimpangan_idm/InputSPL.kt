@@ -198,6 +198,7 @@ class InputSPL : AppCompatActivity() {
 
         val cred = JSONObject()
         cred.put("nik",nik)
+        //cred.put("nik","2015020104")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -311,7 +312,7 @@ class InputSPL : AppCompatActivity() {
         val nik = intent.getStringExtra("nik")
         val cred = JSONObject()
         cred.put("nik",nik)
-        //cred.put("nik","2013212174")
+        //cred.put("nik","2015020104")
         cred.put("jammasuk", JamIn.text)
         cred.put("jamkeluar", JamOut.text)
         cred.put("tgllembur", textDate.text)

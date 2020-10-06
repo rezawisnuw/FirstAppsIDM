@@ -215,7 +215,7 @@ class InputSPL_TSM : AppCompatActivity() {
         val url = "https://hrindomaret.com/api/getdata/listatasancabang"
 
         val cred = JSONObject()
-        cred.put("nik","1997000202")
+        //cred.put("nik","1997000202")
 
         val formbody = cred.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
