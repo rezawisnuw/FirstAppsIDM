@@ -61,24 +61,24 @@ class ApprovalSPL :  AppCompatActivity()  {
         getApprovalList()
 
         btn_approve.setOnClickListener{
-            if(ck_spl.isChecked){
+//            if(ck_spl.isChecked){
                 approveSPL()
-                println("getChecked "+getChecked)
-                println("getJson "+getJson)
-                println("getNoSPL "+ getNoDtlSPL)
-            }else{
-                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
-            }
+//                println("getChecked "+getChecked)
+//                println("getJson "+getJson)
+//                println("getNoSPL "+ getNoDtlSPL)
+//            }else{
+//                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
+//            }
 
 
         }
 
         btn_reject.setOnClickListener {
-            if(ck_spl.isChecked){
+//            if(ck_spl.isChecked){
                 rejectSPL()
-            }else{
-                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
-            }
+//            }else{
+//                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
+//            }
 
         }
 
@@ -150,7 +150,11 @@ class ApprovalSPL :  AppCompatActivity()  {
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Approve", Toast.LENGTH_LONG).show()
+                        if(ck_spl.isChecked){
+                            Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Approve", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Approve, Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
+                        }
                         finish()
                         startActivity(getIntent())
                     }
@@ -222,7 +226,11 @@ class ApprovalSPL :  AppCompatActivity()  {
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject, Cek Data Presensi", Toast.LENGTH_LONG).show()
+                        if(ck_spl.isChecked){
+                            Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject, Cek Data Presensi", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject, Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
+                        }
                         finish()
                         startActivity(getIntent())
                     }

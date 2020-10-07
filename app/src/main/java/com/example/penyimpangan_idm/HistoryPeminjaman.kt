@@ -34,11 +34,11 @@ class HistoryPeminjaman : AppCompatActivity() {
         getHistory()
 
         btn_deletehistory.setOnClickListener {
-            if(ck_history.isChecked){
+//            if(ck_history.isChecked){
                 cancelHistory()
-            }else{
-                Toast.makeText(this@HistoryPeminjaman, "Pilih karyawan terlebih dahulu", Toast.LENGTH_LONG).show()
-            }
+//            }else{
+//                Toast.makeText(this@HistoryPeminjaman, "Pilih karyawan terlebih dahulu", Toast.LENGTH_LONG).show()
+//            }
 
         }
     }
@@ -115,7 +115,11 @@ class HistoryPeminjaman : AppCompatActivity() {
                     }
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus", Toast.LENGTH_LONG).show()
+                        if(ck_history.isChecked){
+                            Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus, Pilih karyawan terlebih dahulu", Toast.LENGTH_LONG).show()
+                        }
                         finish()
                         startActivity(getIntent())
                     }
