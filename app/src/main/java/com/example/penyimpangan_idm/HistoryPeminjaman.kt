@@ -59,7 +59,7 @@ class HistoryPeminjaman : AppCompatActivity() {
         client.newCall(post).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
-                println("andycok"+body)
+                println("bodyhistory"+body)
                 println("lujancoookkk"+ttlDataHistory)
 
                 val gson = GsonBuilder().create()
