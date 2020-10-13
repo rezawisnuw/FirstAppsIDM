@@ -41,6 +41,7 @@ object objApprovalType {
 
 var ApprovalCode : String? = ""
 var KategoriParam : String? = ""
+var ListApprovalSPLToko : String? = ""
 
 class ApprovalSPL :  AppCompatActivity()  {
 
@@ -60,9 +61,16 @@ class ApprovalSPL :  AppCompatActivity()  {
 
         getApprovalList()
 
+
         btn_approve.setOnClickListener{
 //            if(ck_spl.isChecked){
+            println("ahaydeahayde "+ ListApprovalSPLToko)
+            if(ListApprovalSPLToko == "[]"){
+                Toast.makeText(this@ApprovalSPL, "Data SPL Kosong", Toast.LENGTH_LONG).show()
+            }else{
                 approveSPL()
+            }
+
 //                println("getChecked "+getChecked)
 //                println("getJson "+getJson)
 //                println("getNoSPL "+ getNoDtlSPL)
@@ -75,7 +83,11 @@ class ApprovalSPL :  AppCompatActivity()  {
 
         btn_reject.setOnClickListener {
 //            if(ck_spl.isChecked){
+            if(ListApprovalSPLToko == "[]"){
+                Toast.makeText(this@ApprovalSPL, "Data SPL Kosong", Toast.LENGTH_LONG).show()
+            }else{
                 rejectSPL()
+            }
 //            }else{
 //                Toast.makeText(this@ApprovalSPL, "Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
 //            }
@@ -106,7 +118,7 @@ class ApprovalSPL :  AppCompatActivity()  {
         val status = "Approve"
         val nik = intent.getStringExtra("nik")
 
-        println("woyowoyowyo "+getNoDtlSPL)
+        println("woyowoyowyo "+getJson)
 
 
         val param = JSONObject()
@@ -332,7 +344,7 @@ class ApprovalSPL :  AppCompatActivity()  {
         client.newCall(post).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
-
+                println("bodygetapproval"+body)
                 val resApprovalType = getApprovalType()
                 //listApprovalType = body
 
@@ -386,6 +398,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                 //val listspl: List<ModelListSPL> = gson.fromJson(body,Array<ModelListSPL>::class.java).toList()
                 val listspl = gson.fromJson(body,Feed::class.java)
                 println("bodygson " + listspl.data)
+                ListApprovalSPLToko = listspl.data.toString()
 
                 runOnUiThread {
                     if(listspl.data.toString() == "[]"){
