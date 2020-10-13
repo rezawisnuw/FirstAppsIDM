@@ -203,8 +203,15 @@ class Peminjaman_AM : AppCompatActivity(){
                     dialog3.show()
 
                 }else{
-
-                    val ttlhari = JumlahHari?.toInt()
+                    var ttlhari : Int = 0
+                    when (JumlahHari) {
+                        "" -> ttlhari = 0
+                        "1" -> ttlhari = 0
+                        "2" -> ttlhari = 1
+                        "3" -> ttlhari = 2
+                        else -> ttlhari = 0
+                    }
+                    //val ttlhari = JumlahHari?.toInt()
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                     val convertedDate = dateFormat.parse(date!!.text as String)
                     val calendar = Calendar.getInstance()

@@ -129,6 +129,8 @@ class RecyclerApprovalSPL(val feed: ApprovalSPL.Feed): RecyclerView.Adapter<Cust
             println("GSOOOONN "+ GsonBuilder().create().toJson(feed))
             println("JsonCheckeeed" + getJson)
             println("position "+position)
+            println("ckspl"+ holder.view.ck_spl.isChecked.toString())
+            println("getchecked"+ getChecked.contains(feed.toString()))
         }
         holder.view.ck_spl.isChecked = getChecked.contains(feed.toString())
 

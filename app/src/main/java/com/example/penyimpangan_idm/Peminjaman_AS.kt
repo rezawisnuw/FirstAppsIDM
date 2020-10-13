@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_peminjaman_as.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -194,8 +195,15 @@ class Peminjaman_AS : AppCompatActivity() {
                     dialog0.show()
 
                 }else{
-
-                    var ttlhari = JmlHari?.toInt()
+                    var ttlhari : Int = 0
+                    when (JmlHari) {
+                        "" -> ttlhari = 0
+                        "1" -> ttlhari = 0
+                        "2" -> ttlhari = 1
+                        "3" -> ttlhari = 2
+                        else -> ttlhari = 0
+                    }
+                    //var ttlhari = JmlHari?.toInt()
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                     val convertedDate = dateFormat.parse(button!!.text as String)
                     val calendar = Calendar.getInstance()
