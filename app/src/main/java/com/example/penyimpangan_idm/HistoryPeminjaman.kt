@@ -67,6 +67,8 @@ class HistoryPeminjaman : AppCompatActivity() {
 
                 runOnUiThread {
                     rv_historypeminjaman.adapter = RecyclerHistoryPeminjaman(feed)
+
+                    setCheckedHistoryPeminjaman = false
                 }
 
             }

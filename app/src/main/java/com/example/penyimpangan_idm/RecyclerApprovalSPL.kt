@@ -18,7 +18,7 @@ var getTotalDurasi:MutableList<String?> = ArrayList()
 var getKeterangan:MutableList<String?> = ArrayList()
 
 var ttlData: Int = 0
-var setChecked: Boolean = false
+var setvalckbox: Boolean = true
 
 var getChecked:MutableList<String?> = ArrayList()
 var getJson:MutableList<String?> = ArrayList()
@@ -132,9 +132,10 @@ class RecyclerApprovalSPL(val feed: ApprovalSPL.Feed): RecyclerView.Adapter<Cust
             println("position "+position)
             println("ckspl"+ holder.view.ck_spl.isChecked.toString())
             println("getchecked"+ getChecked.contains(feed.toString()))
+            setvalckbox = holder.view.ck_spl.isChecked
         }
-        holder.view.ck_spl.isChecked = getChecked.contains(feed.toString())
-        setChecked = getChecked.contains(feed.toString())
+        //holder.view.ck_spl.isChecked = getChecked.contains(feed.toString())
+
     }
 
 

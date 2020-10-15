@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.layout_approval_spl.view.*
 import kotlinx.android.synthetic.main.layout_history_peminjaman.view.*
+import kotlinx.android.synthetic.main.layout_rv_approval_spl.view.*
 import kotlinx.android.synthetic.main.layout_rv_history_peminjaman.view.*
 
 var getDataKaryawanHistoryPeminjaman:MutableList<String?> = ArrayList()
@@ -88,9 +89,8 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
             println("GSOOOONN "+ GsonBuilder().create().toJson(res))
             println("JsonCheckeeed" + getJsonHistoryPeminjaman)
             println("position "+position)
+            setCheckedHistoryPeminjaman = holder.view.ck_history.isChecked
         }
-
-        setCheckedHistoryPeminjaman = getCheckedHistoryPeminjaman.contains(res.toString())
 
 //        holder.view.tv_res_karyawan.text = "res.DataKaryawan"
 //        holder.view.tv_res_tokoasal.text = "res.TokoAsal"

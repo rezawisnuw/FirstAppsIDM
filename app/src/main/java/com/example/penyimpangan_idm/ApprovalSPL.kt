@@ -21,6 +21,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.lang.Exception
 
 
 class getApprovalType{
@@ -149,8 +150,11 @@ class ApprovalSPL :  AppCompatActivity()  {
             override fun onResponse(call: Call, response: Response) {
                 println("Hasil Success")
                 val resp = response.body?.string()
-                println("responseeee "+ resp)
-                if(resp!!.toString().contains("Sukses") && setChecked == true){
+                //val respObject = JSONObject(resp)
+                //val respArray = respObject.getJSONArray("data")
+                println("responseeee "+ setvalckbox)
+                if(resp!!.toString().contains("Sukses") && setvalckbox == true){
+                //if(respArray.getJSONObject(0).getString("Pesan").toString() == "Sukses Insert Approve" && setvalckbox == true){
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -159,7 +163,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                         startActivity(getIntent())
 
                     }
-                } else if (setChecked == false) {
+                } else if (setvalckbox == false) {
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -236,10 +240,17 @@ class ApprovalSPL :  AppCompatActivity()  {
                 println("Hasil Success")
                 val respspl = response.body?.string()
                 val respObject = JSONObject(respspl)
-                val respArray = respObject.getJSONArray("data")
-                println("response reject"+ respspl)
-                println("response reject sue"+ respArray.getJSONObject(0).getString("Pesan").toString())
-                if(respspl!!.toString()!!.contains("Sukses") && setChecked == true){
+                var respArray: Any
+                try {
+                    respArray = respObject.getJSONArray("data")
+                }
+                catch (e : Exception){
+                    respArray = "null"
+                }
+                println("response reject"+ respArray)
+                //println("response reject sue"+ respArray.getJSONObject(0).getString("Pesan").toString())
+                //if(respArray.getJSONObject(0).getString("Pesan").toString() == "Sukses Insert Reject" && setvalckbox == true){
+                if(respspl!!.toString().contains("Sukses") && setvalckbox == true){
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -248,7 +259,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                         startActivity(getIntent())
                     }
                 }
-                else if(respArray.getJSONObject(0).getString("Pesan").toString() == "null") {
+                else if(respObject.getJSONArray("data").getJSONObject(0).getString("Pesan").toString() == "null" && setvalckbox == true)  {
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -257,7 +268,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                         startActivity(getIntent())
                     }
                 }
-                else if(setChecked == false){
+                else if(setvalckbox == false){
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -353,6 +364,7 @@ class ApprovalSPL :  AppCompatActivity()  {
 
                 getListSPL()
 
+
             }
         }
 
@@ -445,6 +457,8 @@ class ApprovalSPL :  AppCompatActivity()  {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         rv_approvalspl.adapter = RecyclerApprovalSPL(listspl)
+
+                        setvalckbox = false
                     }
                 }
 
