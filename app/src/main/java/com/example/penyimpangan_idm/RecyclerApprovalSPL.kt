@@ -18,6 +18,7 @@ var getTotalDurasi:MutableList<String?> = ArrayList()
 var getKeterangan:MutableList<String?> = ArrayList()
 
 var ttlData: Int = 0
+var setChecked: Boolean = false
 
 var getChecked:MutableList<String?> = ArrayList()
 var getJson:MutableList<String?> = ArrayList()
@@ -133,7 +134,7 @@ class RecyclerApprovalSPL(val feed: ApprovalSPL.Feed): RecyclerView.Adapter<Cust
             println("getchecked"+ getChecked.contains(feed.toString()))
         }
         holder.view.ck_spl.isChecked = getChecked.contains(feed.toString())
-
+        setChecked = getChecked.contains(feed.toString())
     }
 
 

@@ -19,6 +19,7 @@ var getTglMeminjamHistoryPeminjaman:MutableList<String?> = ArrayList()
 var ttlDataHistory: Int = 0
 
 var getCheckedHistoryPeminjaman:MutableList<String?> = ArrayList()
+var setCheckedHistoryPeminjaman:Boolean = false
 var getJsonHistoryPeminjaman:MutableList<String?> = ArrayList()
 
 class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPeminjaman>): RecyclerView.Adapter<CustomViewHolder>(){
@@ -88,6 +89,8 @@ class RecyclerHistoryPeminjaman(val list: List<HistoryPeminjaman.ModelHistoryPem
             println("JsonCheckeeed" + getJsonHistoryPeminjaman)
             println("position "+position)
         }
+
+        setCheckedHistoryPeminjaman = getCheckedHistoryPeminjaman.contains(res.toString())
 
 //        holder.view.tv_res_karyawan.text = "res.DataKaryawan"
 //        holder.view.tv_res_tokoasal.text = "res.TokoAsal"

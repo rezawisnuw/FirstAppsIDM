@@ -107,19 +107,26 @@ class HistoryPeminjaman : AppCompatActivity() {
                 val resp = response.body?.string()
                 println("responsehistory"+ resp)
 
-                if(resp!!.toString()!!.contains("Sukses")){
+                if(resp!!.toString()!!.contains("Sukses") && setCheckedHistoryPeminjaman == true){
                     runOnUiThread {
                         Toast.makeText(this@HistoryPeminjaman, "Data Berhasil Dihapus", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }
-                } else {
+                } else if (setCheckedHistoryPeminjaman == false){
                     runOnUiThread {
-                        if(ck_history.isChecked){
-                            Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus", Toast.LENGTH_LONG).show()
-                        }else{
+//                        if(ck_history.isChecked){
+//                            Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus", Toast.LENGTH_LONG).show()
+//                        }else{
                             Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus, Pilih karyawan terlebih dahulu", Toast.LENGTH_LONG).show()
-                        }
+//                        }
+                        finish()
+                        startActivity(getIntent())
+                    }
+                }
+                else{
+                    runOnUiThread {
+                            Toast.makeText(this@HistoryPeminjaman, "Data Gagal Dihapus, Coba Reboot Aplikasi", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }

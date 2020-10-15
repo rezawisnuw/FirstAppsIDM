@@ -150,7 +150,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                 println("Hasil Success")
                 val resp = response.body?.string()
                 println("responseeee "+ resp)
-                if(resp!!.toString().contains("Success") && ck_spl.isChecked){
+                if(resp!!.toString().contains("Sukses") && setChecked == true){
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -159,7 +159,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                         startActivity(getIntent())
 
                     }
-                } else {
+                } else if (setChecked == false) {
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -168,6 +168,15 @@ class ApprovalSPL :  AppCompatActivity()  {
 //                        }else{
                             Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Approve, Pilih spl terlebih dahulu", Toast.LENGTH_LONG).show()
 //                        }
+                        finish()
+                        startActivity(getIntent())
+                    }
+                }
+                else{
+                    runOnUiThread {
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                          Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Approve, Coba Reboot Aplikasi", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }
@@ -230,7 +239,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                 val respArray = respObject.getJSONArray("data")
                 println("response reject"+ respspl)
                 println("response reject sue"+ respArray.getJSONObject(0).getString("Pesan").toString())
-                if(respspl!!.toString()!!.contains("Sukses")){
+                if(respspl!!.toString()!!.contains("Sukses") && setChecked == true){
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -248,7 +257,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                         startActivity(getIntent())
                     }
                 }
-                else{
+                else if(setChecked == false){
                     runOnUiThread {
                         pb_listspl.visibility = View.GONE
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -257,6 +266,15 @@ class ApprovalSPL :  AppCompatActivity()  {
 //                        }else{
 //                            Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject,  Cek Data Presensi", Toast.LENGTH_LONG).show()
 //                        }
+                        finish()
+                        startActivity(getIntent())
+                    }
+                }
+                else{
+                    runOnUiThread {
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            Toast.makeText(this@ApprovalSPL, "SPL Gagal Di Reject, Coba Reboot Aplikasi", Toast.LENGTH_LONG).show()
                         finish()
                         startActivity(getIntent())
                     }
