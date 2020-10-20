@@ -61,16 +61,15 @@ class RecyclerApprovalSPL(val feed: ApprovalSPL.Feed): RecyclerView.Adapter<Cust
         holder.view.tv_inpjammasuk.text = feed.JamMasuk
         holder.view.tv_inpjamkeluar.text = feed.JamKeluar
         holder.view.tv_inptotaldurasi.text = feed.TotalDurasi
-
-        if(feed.TotalDurasi == null || feed.TotalDurasi.isEmpty()){
-            holder.view.tv_totaldurasi.setVisibility(View.GONE);
-            holder.view.tv_inptotaldurasi.setVisibility(View.GONE);
-        }else{
-            holder.view.tv_totaldurasi.setVisibility(View.VISIBLE);
-            holder.view.tv_inptotaldurasi.setVisibility(View.VISIBLE);
-        }
-
         holder.view.tv_inpketerangan.text = feed.Keterangan
+
+        //if(feed.Keterangan == null || feed.Keterangan.isEmpty()){
+            holder.view.tv_keterangan.setVisibility(View.GONE);
+            holder.view.tv_inpketerangan.setVisibility(View.GONE);
+//        }else{
+//            holder.view.tv_keterangan.setVisibility(View.VISIBLE);
+//            holder.view.tv_inpketerangan.setVisibility(View.VISIBLE);
+//        }
 
         holder.view.ck_spl.setOnClickListener{
             var gson = GsonBuilder().create().toJson(feed)

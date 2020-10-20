@@ -67,6 +67,12 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/divider13"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -90,6 +96,12 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/divider14"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -116,6 +128,12 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/divider15"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -139,6 +157,12 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/divider16"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -187,7 +211,15 @@
                             android:layout_margin="8dp"
                             android:text="Tanggal Terinput"
                             android:textStyle="bold" />
+
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/divider17"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="?android:attr/listDivider" />
 
                 </GridLayout>
 

@@ -206,9 +206,9 @@ class HomeActivity : AppCompatActivity() {
 
         client.newCall(post).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                val resp = response.body?.string()
+                val respn = response.body?.string()
 
-                val jsonObject = JSONObject(resp).getString("data")
+                val jsonObject = JSONObject(respn).getString("data")
                 val jsonArray = JSONArray(jsonObject)
                 val dataJabatan = jsonArray.getJSONObject(0).get("JabatanToko")
 
