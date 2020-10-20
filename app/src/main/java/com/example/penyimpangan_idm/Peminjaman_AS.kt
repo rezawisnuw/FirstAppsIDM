@@ -433,7 +433,7 @@ class Peminjaman_AS : AppCompatActivity() {
 
         val tglawalstr = button!!.text as String
         TglAwal = tglawalstr.take(2).toInt()
-        println(TglAwal)
+        println("TglAwal"+TglAwal)
 
         val date = button!!.text as String
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -447,8 +447,8 @@ class Peminjaman_AS : AppCompatActivity() {
 
         TglAkhirminsatu = TglAkhir -1
 
-        println(TglAkhir)
-        println(TglAkhirminsatu)
+        println("TglAkhir"+TglAkhir)
+        println("TglAkhirminsatu"+TglAkhirminsatu)
 
 
         if (TglAwal == TglAkhir){
@@ -459,7 +459,7 @@ class Peminjaman_AS : AppCompatActivity() {
         }
         else{ Hari4 = arrayOf("1","2","3")}
 
-        val hari = Hari4
+        val hari = arrayOf("1","2","3") //Hari4
 
 
         jmlhari.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, hari)
@@ -670,6 +670,7 @@ class Peminjaman_AS : AppCompatActivity() {
     fun main() = runBlocking {
         val url2 = "https://hrindomaret.com/api/getpinjam/karyawan"
         val param2 = JSONObject()
+        //val nik = intent.getStringExtra("nik")
         param2.put("kodetoko", TkAsl)
         param2.put("tglshift", button!!.text as String?)
         val formbody2 = param2.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
@@ -682,13 +683,27 @@ class Peminjaman_AS : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
+                println("karyawanas"+body.toString())
                 val reps = getList1()
                 val gson = GsonBuilder().create()
                 val feed2 : List<ListToko> = gson.fromJson(body,Array<ListToko>::class.java).toList()
+                println("feed2"+feed2)
                 Nikkaryawan = body
                 reps.listNama = body
                 ListNama.setNama(reps)
                 getNama1(reps)
+                if(body.toString() == "[]"){
+                    runOnUiThread {
+                        pb_peminjamanAS.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        //messageDialog(nik, Nikkaryawan, "alert")
+                        Toast.makeText(
+                            this@Peminjaman_AS,
+                            "Data Karyawan Kosong, Silahkan Pilih Tanggal atau Toko Yang Lain",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+
 
             }
         })

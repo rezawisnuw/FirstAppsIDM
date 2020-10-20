@@ -717,7 +717,16 @@ class Peminjaman_AM : AppCompatActivity(){
     }
 
     fun AsAsal() = runBlocking {
-
+        if(date!!.text as String? != "Select Date"){
+            pb_peminjamanAM.visibility = View.VISIBLE
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            );
+        }else{
+            pb_peminjamanAM.visibility = View.GONE
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
 
         //val client = OkHttpClient()
         val url = "https://hrindomaret.com/api/getpinjam/supervisorasal"
@@ -855,7 +864,17 @@ class Peminjaman_AM : AppCompatActivity(){
                 //test1(res)
                 //main()
                 //getNama(res)
-
+                if(body.toString() == "[]"){
+                    runOnUiThread {
+                        pb_peminjamanAM.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        //messageDialog(nik, Nikkaryawan, "alert")
+                        Toast.makeText(
+                            this@Peminjaman_AM,
+                            "Data Karyawan Kosong, Silahkan Pilih Tanggal, AS, atau Toko Yang Lain",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
 
             }
 
@@ -1027,7 +1046,7 @@ class Peminjaman_AM : AppCompatActivity(){
         }
         else{ HariAm = arrayOf("1","2","3")}
 
-        val hari = HariAm
+        val hari = arrayOf("1","2","3") //HariAm
 
 
         jumlahhari.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, hari)
