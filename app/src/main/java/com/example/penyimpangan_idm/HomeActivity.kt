@@ -39,6 +39,8 @@ class HomeActivity : AppCompatActivity() {
 
         val nik = intent.getStringExtra("nik")
 
+        println("nikhome"+nik)
+
         isASAM(nik)
         isJabatanToko(nik)
         isJabatanCabang(nik)

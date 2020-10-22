@@ -151,6 +151,17 @@
             android:layout_weight="1"
             android:text="@string/reject"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_historyspl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:text="History"
+            android:textStyle="bold" />
     </LinearLayout>
 
 

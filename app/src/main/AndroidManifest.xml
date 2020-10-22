@@ -40,6 +40,7 @@
         <activity android:name=".Peminjaman_AM" />
         <activity android:name=".HistoryPeminjaman" />
         <activity android:name=".ApprovalSPL" />
+        <activity android:name=".HistoryApprovalSPL" />
         <activity android:name=".InputSPL" />
         <activity android:name=".InputSPL_TSM" />
     </application>

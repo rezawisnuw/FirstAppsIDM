@@ -405,6 +405,7 @@ class ApprovalSPL :  AppCompatActivity()  {
                             Toast.LENGTH_SHORT).show()
                         finish()
                         val intent = Intent(this@ApprovalSPL, HomeActivity::class.java)
+                        intent.putExtra("nik",nik)
                         startActivity(intent)
                     }
                 } else{
