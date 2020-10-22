@@ -1,5 +1,6 @@
 package com.example.penyimpangan_idm
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -14,6 +15,7 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_approval_spl.tv_datarelasi
+import kotlinx.android.synthetic.main.layout_peminjaman_as.*
 import kotlinx.android.synthetic.main.layout_rv_approval_spl.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -300,8 +302,8 @@ class ApprovalSPL :  AppCompatActivity()  {
 
     //fun setApprovalList(res: getApprovalType){
     fun setApprovalList(){
-        val setApprovalType  = arrayListOf<String>()
-        val setKategoriType = arrayListOf<String>()
+        val setApprovalType  = arrayListOf<String?>()
+        val setKategoriType = arrayListOf<String?>()
 
         val setApprovalTypeJson = JSONObject(objApprovalType.getObjApprovalType())
         val jsonArray = JSONArray(setApprovalTypeJson.get("data").toString())
@@ -388,14 +390,35 @@ class ApprovalSPL :  AppCompatActivity()  {
         client.newCall(post).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
-                println("bodygetapproval"+body)
-                val resApprovalType = getApprovalType()
-                //listApprovalType = body
+                val respnObject = JSONObject(body)
+                //respnObject.getJSONArray("data").getJSONObject(0)
+                println("bodygetapproval"+respnObject)
 
-                resApprovalType.listApprovalType = body
-                objApprovalType.setObjApprovalType(resApprovalType)
-                //setApprovalList(resApprovalType)
-                setApprovalList()
+
+                if (respnObject.getJSONArray("data").toString() == "[]"){
+                    runOnUiThread {
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        Toast.makeText(
+                            this@ApprovalSPL,
+                            "Data Pilihan SPL yang bersangkutan Kosong",
+                            Toast.LENGTH_SHORT).show()
+                        finish()
+                        val intent = Intent(this@ApprovalSPL, HomeActivity::class.java)
+                        startActivity(intent)
+                    }
+                } else{
+                    runOnUiThread {
+                        val resApprovalType = getApprovalType()
+                        //listApprovalType = body
+
+                        resApprovalType.listApprovalType = body
+                        objApprovalType.setObjApprovalType(resApprovalType)
+
+                        //setApprovalList(resApprovalType)
+                        setApprovalList()
+                    }
+                }
 
             }
 

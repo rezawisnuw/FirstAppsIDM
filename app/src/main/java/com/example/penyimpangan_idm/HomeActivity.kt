@@ -161,7 +161,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun isASAM(nik:String){
+    fun isASAM(nik:String?){
         val url = "https://hrindomaret.com/api/isASAM"
 
         val cred = JSONObject()
@@ -188,7 +188,7 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    fun isJabatanToko(nik:String){
+    fun isJabatanToko(nik:String?){
         val url = "https://hrindomaret.com/api/getdata/jabatantokospl"
 
         val cred = JSONObject()
@@ -222,7 +222,7 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    fun isJabatanCabang(nik:String){
+    fun isJabatanCabang(nik:String?){
         val url = "https://hrindomaret.com/api/getdata/jabatancabangspl"
 
         val cred = JSONObject()
