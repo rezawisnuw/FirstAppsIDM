@@ -57,7 +57,7 @@ class HistoryApprovalSPL : AppCompatActivity() {
                 println("bodyhistoryspltoko"+body)
 
                 val gson = GsonBuilder().create()
-                val listhistoryspl = gson.fromJson(body, HistoryApprovalSPL.FeedHistorySPLToko::class.java)
+                val listhistoryspl = gson.fromJson(body, HistoryApprovalSPL.FeedHistoryApprovalSPL::class.java)
                 println("bodygsonhistoryspltoko " + listhistoryspl.data)
 
                 runOnUiThread {
@@ -73,11 +73,11 @@ class HistoryApprovalSPL : AppCompatActivity() {
         })
     }
 
-    data class FeedHistorySPLToko(
-        @SerializedName("data") val data: List<HistoryApprovalSPL.ModelListHistorySPLToko>
+    data class FeedHistoryApprovalSPL(
+        @SerializedName("data") val data: List<HistoryApprovalSPL.ModelListHistoryApprovalSPL>
     )
 
-    data class ModelListHistorySPLToko(
+    data class ModelListHistoryApprovalSPL(
         @SerializedName("NoDtlSPL") val NoDtlSPL : String?,
         @SerializedName("DataKaryawan") val DataKaryawan : String?,
         @SerializedName("DataRelasi") val DataRelasi : String?,
