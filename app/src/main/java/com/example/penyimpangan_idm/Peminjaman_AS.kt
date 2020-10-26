@@ -371,7 +371,7 @@ class Peminjaman_AS : AppCompatActivity() {
             override fun onClick(v: View) {
                 val urlhistory = "https://hrindomaret.com/api/getpinjam/history"
                 val nik = intent.getStringExtra("nik")
-                val nikkary = intent.getStringExtra(KaryawanTokoG)
+                val nikkary = intent.getStringExtra(Nikkaryawan)
                 val attribute = intent.getStringExtra("history")
                 val param = JSONObject()
                 param.put("nik", nik)
@@ -394,7 +394,7 @@ class Peminjaman_AS : AppCompatActivity() {
                             if(body == "[]"){
                                 Toast.makeText(
                                     this@Peminjaman_AS,
-                                    "Belum Ada Data History",
+                                    "Belum Ada Data On Process",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }else{

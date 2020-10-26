@@ -385,7 +385,7 @@ class Peminjaman_AM : AppCompatActivity(){
                             if(body == "[]"){
                                 Toast.makeText(
                                     this@Peminjaman_AM,
-                                    "Belum Ada Data History",
+                                    "Belum Ada Data On Process",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }else{

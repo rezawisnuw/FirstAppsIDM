@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.home.*
+import kotlinx.android.synthetic.main.layout_history_peminjaman.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.*
@@ -40,6 +41,12 @@ class HomeActivity : AppCompatActivity() {
         val nik = intent.getStringExtra("nik")
 
         println("nikhome"+nik)
+
+        btn_logout.setOnClickListener {
+            finish()
+            val intent = Intent(this@HomeActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         isASAM(nik)
         isJabatanToko(nik)
@@ -161,6 +168,11 @@ class HomeActivity : AppCompatActivity() {
         runOnUiThread {
             progressBar!!.visibility = View.GONE
         }
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        this.moveTaskToBack(true)
     }
 
     fun isASAM(nik:String?){

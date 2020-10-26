@@ -26,7 +26,7 @@ class HistoryPeminjaman : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_history_peminjaman)
-        setTitle("History Peminjaman")
+        setTitle("On Process Peminjaman")
 
         rv_historypeminjaman.setHasFixedSize(true)
         rv_historypeminjaman.layoutManager = LinearLayoutManager(this)
@@ -47,9 +47,17 @@ class HistoryPeminjaman : AppCompatActivity() {
         val url = "https://hrindomaret.com/api/getpinjam/history"
         val param = JSONObject()
         val nik = intent.getStringExtra("nik")
+//        val nikkary = intent.getStringExtra(Nikkaryawan)
+//        val nikkary = intent.getStringExtra(KaryawanTokoG)
+        val attribute = intent.getStringExtra("history")
+
         param.put("nik",  nik)
+        param.put("nik", nik)
+//        param.put("nikkary", nikkary)
+        param.put("attribute", attribute)
 
         val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        println("balabala"+param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()))
         val post = Request.Builder()
             .url(url)
             .post(formbody)

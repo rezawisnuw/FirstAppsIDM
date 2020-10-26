@@ -15,6 +15,7 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.layout_approval_spl.*
 import kotlinx.android.synthetic.main.layout_approval_spl.tv_datarelasi
+import kotlinx.android.synthetic.main.layout_history_approval_spl.*
 import kotlinx.android.synthetic.main.layout_peminjaman_as.*
 import kotlinx.android.synthetic.main.layout_rv_approval_spl.*
 import okhttp3.*
@@ -97,7 +98,67 @@ class ApprovalSPL :  AppCompatActivity()  {
 
         }
 
+        btn_historyspl.setOnClickListener {
+            historySPL()
+        }
 
+
+    }
+
+    fun historySPL(){
+        pb_listspl.visibility = View.VISIBLE
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+
+        val url = "https://hrindomaret.com/api/getdata/historyspl"
+        val nik = intent.getStringExtra("nik")
+        val param = JSONObject()
+        param.put("kategori",  KategoriParam)
+        param.put("kodekategori",  ApprovalCode)
+        val formbody = param.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val post = Request.Builder()
+            .url(url)
+            .post(formbody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(post).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+
+                val body = response.body?.string()
+                println("bodyhistoryspl"+body)
+
+                val gson = GsonBuilder().create()
+                val listhistoryspl = gson.fromJson(body,FeedHistory::class.java)
+                println("bodygsonhistory " + listhistoryspl.data)
+
+                runOnUiThread {
+                    if(listhistoryspl.data.toString() == "[]"){
+                        Toast.makeText(
+                            this@ApprovalSPL,
+                            "Pilihan yang terkait tidak ada data history SPL",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }else{
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        val intent = Intent(this@ApprovalSPL, HistoryApprovalSPL::class.java)
+                        intent.putExtra("nik", nik)
+                        startActivity(intent)
+                    }
+                }
+
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Hasil Error")
+            }
+        })
     }
 
     fun approveSPL(){
@@ -499,7 +560,23 @@ class ApprovalSPL :  AppCompatActivity()  {
         @SerializedName("data") val data: List<ModelListSPL>
     )
 
+    data class FeedHistory(
+        @SerializedName("data") val data: List<ModelListHistory>
+    )
+
     data class ModelListSPL(
+        @SerializedName("NoDtlSPL") val NoDtlSPL : String?,
+        @SerializedName("DataKaryawan") val DataKaryawan : String?,
+        @SerializedName("DataRelasi") val DataRelasi : String?,
+        @SerializedName("RincianTugas") val RincianTugas : String?,
+        @SerializedName("TglLembur") val TglLembur : String?,
+        @SerializedName("JamMasuk") val JamMasuk : String?,
+        @SerializedName("JamKeluar") val JamKeluar : String?,
+        @SerializedName("TotalDurasi") val TotalDurasi : String?,
+        @SerializedName("Keterangan") val Keterangan : String?
+    )
+
+    data class ModelListHistory(
         @SerializedName("NoDtlSPL") val NoDtlSPL : String?,
         @SerializedName("DataKaryawan") val DataKaryawan : String?,
         @SerializedName("DataRelasi") val DataRelasi : String?,
