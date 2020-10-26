@@ -10,7 +10,7 @@
         android:id="@+id/rv_historyapprovalspl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="12dp"
         android:background="#E1DFDF"
         android:scrollbarSize="5dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"
