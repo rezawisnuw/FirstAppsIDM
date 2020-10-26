@@ -379,23 +379,23 @@ class ApprovalSPL :  AppCompatActivity()  {
 
         }
 
-        val spinnerApprovalType = findViewById<Spinner>(R.id.spin_approvaltype)
+        val spinnerApprovalType = findViewById<Spinner?>(R.id.spin_approvaltype)
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, setApprovalType)
 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
 
-        this.runOnUiThread {
-            spinnerApprovalType.adapter = adapter
+        spinnerApprovalType?.adapter = adapter
 
-            when (setKategoriType.get(1)) {
+        this.runOnUiThread {
+            when (setKategoriType.get(0)) {
                 "dataas" -> tv_approvaltype.text = "Pilih AS :"
                 "datatoko" -> tv_approvaltype.text = "Pilih Toko :"
                 "datadivisi" -> tv_approvaltype.text = "Pilih Divisi :"
                 "dataSPV" -> tv_approvaltype.text = "Pilih SPV :"
                 else -> tv_approvaltype.text = this.toString()
             }
-            tv_datarelasi.text = setKategoriType.get(1)
+            tv_datarelasi.text = setKategoriType.get(0)
         }
 
         spinnerApprovalType?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -471,6 +471,8 @@ class ApprovalSPL :  AppCompatActivity()  {
                     }
                 } else{
                     runOnUiThread {
+                        pb_listspl.visibility = View.GONE
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         val resApprovalType = getApprovalType()
                         //listApprovalType = body
 
