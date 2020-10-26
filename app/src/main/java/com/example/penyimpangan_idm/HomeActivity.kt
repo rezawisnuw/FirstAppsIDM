@@ -3,23 +3,18 @@ package com.example.penyimpangan_idm
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.home.*
-import kotlinx.android.synthetic.main.layout_history_peminjaman.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.util.*
 
 var ASAM:String? = ""
 var JabatanToko:String? = ""
@@ -172,7 +167,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //super.onBackPressed()
-        this.moveTaskToBack(true)
+        //this.moveTaskToBack(true)
+        val startMain = Intent(Intent.ACTION_MAIN)
+        startMain.addCategory(Intent.CATEGORY_HOME)
+        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(startMain)
     }
 
     fun isASAM(nik:String?){
