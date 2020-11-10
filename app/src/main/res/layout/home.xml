@@ -59,12 +59,12 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/imageButton"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginTop="20dp"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic[0]" />
+                        app:srcCompat="@drawable/peminjaman" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -91,7 +91,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/imageButton2"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
@@ -122,12 +122,12 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/imageButton3"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginTop="20dp"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic[10]" />
+                        app:srcCompat="@drawable/penyimpangan" />
 
                     <TextView
                         android:id="@+id/textView4"
@@ -153,12 +153,12 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/imageButton4"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginTop="20dp"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic[10]" />
+                        app:srcCompat="@drawable/spl" />
 
                     <TextView
                         android:id="@+id/textView5"
