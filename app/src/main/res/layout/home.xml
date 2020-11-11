@@ -64,7 +64,7 @@
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginTop="20dp"
-                        app:srcCompat="@drawable/peminjaman" />
+                        app:srcCompat="@drawable/penyimpangan" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -127,7 +127,7 @@
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginTop="20dp"
-                        app:srcCompat="@drawable/penyimpangan" />
+                        app:srcCompat="@drawable/peminjaman" />
 
                     <TextView
                         android:id="@+id/textView4"
