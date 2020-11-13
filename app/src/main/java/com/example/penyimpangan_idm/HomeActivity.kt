@@ -54,23 +54,28 @@ class HomeActivity : AppCompatActivity() {
             println("btn1")
             if(ASAM!!.contains("AS")){
 //                println("A")
+                progressBar!!.visibility = View.GONE
+
                 val intent = Intent(this@HomeActivity, ApprovalpenyimpanganActivity::class.java)
                 intent.putExtra("nik",nik)
                 startActivity(intent)
             } else if(ASAM!!.contains("AM")){
+                progressBar!!.visibility = View.GONE
+
                 val intent = Intent(this@HomeActivity, ApprovalPenyimpanganAM::class.java)
                 intent.putExtra("nik",nik)
                 startActivity(intent)
             } else{
-                runOnUiThread {
-                    Toast.makeText(
+                //runOnUiThread {
+                progressBar!!.visibility = View.GONE
+
+                Toast.makeText(
                         baseContext,
                         "Anda bukan AS / AM",
                         Toast.LENGTH_LONG
                     ).show()
 
-                    progressBar!!.visibility = View.GONE
-                }
+                //}
             }
 //            if(JSONObject(ASAM).has("AS")){
 //                val intent = Intent(this@HomeActivity, ApprovalpenyimpanganActivity::class.java)
