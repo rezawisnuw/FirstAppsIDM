@@ -98,13 +98,13 @@ class HomeActivity : AppCompatActivity() {
                 intent.putExtra("nik",nik)
                 startActivity(intent)
             } else{
-                runOnUiThread {
+                //runOnUiThread {
                     Toast.makeText(
                         baseContext,
                         "Anda bukan AS / AM",
                         Toast.LENGTH_LONG
                     ).show()
-                }
+                //}
             }
         }
 
