@@ -84,7 +84,7 @@ class HomeActivity : AppCompatActivity() {
 //            }
         }
 
-        imageButton2.setOnClickListener{
+        cv_icon.setOnClickListener{
             println("btn2")
         }
 

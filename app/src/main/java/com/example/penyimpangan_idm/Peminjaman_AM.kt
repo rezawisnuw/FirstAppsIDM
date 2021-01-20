@@ -106,6 +106,7 @@ object ListDataPost{
 
 var ASAsalG : String? = ""
 var TokoAsalG : String? = ""
+var NamaKaryawanTokoG : String? = ""
 var KaryawanTokoG : String? = ""
 var ASTujuanG : String? = ""
 var TokoTujuanG : String? = ""
@@ -221,7 +222,7 @@ class Peminjaman_AM : AppCompatActivity(){
                     val tglselesaistr = dateFormat.format(tglselesaiint)
                     val dialogue = AlertDialog.Builder(this@Peminjaman_AM)
                     dialogue.setTitle("Konfirmasi Informasi Data Peminjaman")
-                    dialogue.setMessage("Karyawan $KaryawanTokoG akan dipinjamkan ke toko $TokoTujuanG dari toko $TokoAsalG pada tanggal "+ date!!.text as String? +" hingga tanggal $tglselesaistr")
+                    dialogue.setMessage("Karyawan $NamaKaryawanTokoG akan dipinjamkan ke toko $TokoTujuanG dari toko $TokoAsalG pada tanggal "+ date!!.text as String? +" hingga tanggal $tglselesaistr")
                     dialogue.setPositiveButton("Setuju", DialogInterface.OnClickListener{ dialog, which ->
                         pb_peminjamanAM.visibility = View.VISIBLE
                         getWindow().setFlags(
@@ -608,6 +609,7 @@ class Peminjaman_AM : AppCompatActivity(){
                 println(selectedList)
 
                 //println(selectedList.take(4))
+                NamaKaryawanTokoG = selectedList
                 KaryawanTokoG = selectedList.take(10)
                 //println(TkAsl)
                 ASTujuan()
